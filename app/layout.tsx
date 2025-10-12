@@ -5,6 +5,7 @@ import './globals.css';
 import { inter, poppins } from './fonts';
 import RootClientLayout from '@/components/layout/RootClientLayout';
 import Script from 'next/script';
+import Providers from '@/app/providers'; // Import the Providers component
 
 // SEO-optimierte Metadata für Dortmund (bereits exzellent)
 export const metadata: Metadata = {
@@ -176,9 +177,11 @@ export default function RootLayout({
                   height="0" width="0" style={{display:'none',visibility:'hidden'}}></iframe>
         </noscript>
 
-        <RootClientLayout>
-          {children}
-        </RootClientLayout>
+        <Providers> {/* Wrap with Providers */}
+          <RootClientLayout>
+            {children}
+          </RootClientLayout>
+        </Providers>
       </body>
     </html>
   );
