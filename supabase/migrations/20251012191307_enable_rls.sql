@@ -1,11 +1,18 @@
+-- =====================================================
+-- ENABLE ROW LEVEL SECURITY (RLS) FOR ALL TABLES
+-- =====================================================
+-- This migration MUST be run immediately after the initial schema
+-- to prevent public data access via the API
+-- =====================================================
+
 -- Enable RLS for all tables
-ALTER TABLE studios ENABLE ROW LEVEL SECURITY;
-ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
-ALTER TABLE membership_types ENABLE ROW LEVEL SECURITY;
-ALTER TABLE members ENABLE ROW LEVEL SECURITY;
-ALTER TABLE class_types ENABLE ROW LEVEL SECURITY;
-ALTER TABLE class_schedules ENABLE ROW LEVEL SECURITY;
-ALTER TABLE payments ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS studios ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS membership_types ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS members ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS class_types ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS class_schedules ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS payments ENABLE ROW LEVEL SECURITY;
 
 -- Policies for 'studios' table
 CREATE POLICY "Studio owners can see their own studio" ON studios
@@ -13,6 +20,9 @@ FOR SELECT USING (auth.uid() = owner_id);
 
 CREATE POLICY "Studio owners can update their own studio" ON studios
 FOR UPDATE USING (auth.uid() = owner_id);
+
+CREATE POLICY "Studio owners can insert their own studio" ON studios
+FOR INSERT WITH CHECK (auth.uid() = owner_id);
 
 -- Policies for 'profiles' table
 CREATE POLICY "Users can view their own profile" ON profiles
@@ -67,3 +77,10 @@ FOR SELECT USING (studio_id IN (SELECT id FROM studios WHERE owner_id = auth.uid
 
 CREATE POLICY "Studio owners can manage payments in their studio" ON payments
 FOR ALL USING (studio_id IN (SELECT id FROM studios WHERE owner_id = auth.uid()));
+
+-- =====================================================
+-- SUMMARY
+-- =====================================================
+SELECT
+  'RLS enabled successfully!' as message,
+  (SELECT COUNT(*) FROM pg_policies WHERE schemaname = 'public') as policies_created;

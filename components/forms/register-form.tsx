@@ -47,9 +47,9 @@ export function RegisterForm() {
 
   if (success) {
     return (
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900">Registration successful!</h2>
-        <p className="mt-2 text-sm text-gray-600">Please check your email to confirm your account.</p>
+      <div className="rounded-xl border border-green-500/20 bg-green-500/10 p-6 text-center">
+        <h2 className="text-2xl font-bold text-white">Registration successful!</h2>
+        <p className="mt-2 text-sm text-white/70">Please check your email to confirm your account.</p>
       </div>
     );
   }
@@ -62,9 +62,13 @@ export function RegisterForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-white/90">Email</FormLabel>
               <FormControl>
-                <Input placeholder="you@example.com" {...field} style={{ color: 'black' }} />
+                <Input
+                  placeholder="you@example.com"
+                  {...field}
+                  className="rounded-xl border-white/10 bg-white/5 text-white placeholder-white/40 focus:border-red-500/50 focus:ring-red-500/20"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -75,9 +79,14 @@ export function RegisterForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className="text-white/90">Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} style={{ color: 'black' }} />
+                <Input
+                  type="password"
+                  placeholder="••••••••"
+                  {...field}
+                  className="rounded-xl border-white/10 bg-white/5 text-white placeholder-white/40 focus:border-red-500/50 focus:ring-red-500/20"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -88,16 +97,30 @@ export function RegisterForm() {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel className="text-white/90">Confirm Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} className="text-gray-900" />
+                <Input
+                  type="password"
+                  placeholder="••••••••"
+                  {...field}
+                  className="rounded-xl border-white/10 bg-white/5 text-white placeholder-white/40 focus:border-red-500/50 focus:ring-red-500/20"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        {error && <p className="text-sm font-medium text-destructive">{error}</p>}
-        <Button type="submit" className="w-full" style={{ color: 'black' }}>Create Account</Button>
+        {error && (
+          <div className="rounded-xl border border-red-500/20 bg-red-500/10 p-3">
+            <p className="text-sm text-red-400">{error}</p>
+          </div>
+        )}
+        <Button
+          type="submit"
+          className="w-full rounded-xl border border-white/20 bg-red-500 py-6 font-semibold text-white transition-all hover:bg-red-600"
+        >
+          Create Account
+        </Button>
       </form>
     </Form>
   );

@@ -89,7 +89,7 @@ export default function FitnessCRMDemo() {
       onMouseLeave={() => setActiveTooltip(null)}
     >
       {children}
-      <HelpCircle className="w-4 h-4 text-slate-400 hover:text-violet-400 cursor-help ml-2 inline-block" />
+      <HelpCircle className="w-4 h-4 text-slate-400 hover:text-red-400 cursor-help ml-2 inline-block" />
       
       <AnimatePresence>
         {activeTooltip === tooltipKey && (
@@ -98,12 +98,12 @@ export default function FitnessCRMDemo() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute z-50 bg-slate-800 border border-violet-500/50 rounded-xl p-4 shadow-2xl max-w-sm -top-2 left-full ml-2"
+            className="absolute z-50 bg-slate-800 border border-red-500/50 rounded-xl p-4 shadow-2xl max-w-sm -top-2 left-full ml-2"
             style={{ minWidth: '280px' }}
           >
             <div className="absolute -left-2 top-4 w-0 h-0 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-r-[8px] border-r-slate-800"></div>
             <p className="text-white text-sm leading-relaxed">{tooltips[tooltipKey as keyof typeof tooltips]}</p>
-            <div className="mt-2 text-xs text-violet-400 flex items-center">
+            <div className="mt-2 text-xs text-red-400 flex items-center">
               <Zap className="w-3 h-3 mr-1" />
               Automatisierung verfügbar
             </div>
@@ -464,7 +464,7 @@ export default function FitnessCRMDemo() {
           </div>
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-violet-500 rounded-full shadow-lg shadow-violet-500/50"></div>
+              <div className="w-3 h-3 bg-red-500 rounded-full shadow-lg shadow-red-500/50"></div>
               <span className="text-slate-300 text-sm">Aktive Mitglieder</span>
             </div>
             <div className="flex items-center space-x-2">
@@ -579,12 +579,12 @@ export default function FitnessCRMDemo() {
             <p className="text-slate-500 text-xs mt-1">vs. Vorjahr</p>
           </div>
           <div className="text-center p-4 bg-slate-800/50 rounded-xl border border-slate-700">
-            <p className="text-3xl font-bold text-blue-400">+{chartData[chartData.length-1]['Neue Mitglieder']}</p>
+            <p className="text-3xl font-bold text-red-400">+{chartData[chartData.length-1]['Neue Mitglieder']}</p>
             <p className="text-slate-300 text-sm mt-1">Neue Mitglieder</p>
             <p className="text-slate-500 text-xs mt-1">Aktueller Monat</p>
           </div>
           <div className="text-center p-4 bg-slate-800/50 rounded-xl border border-slate-700">
-            <p className="text-3xl font-bold text-violet-400">{chartData[chartData.length-1]['Aktive Mitglieder']}</p>
+            <p className="text-3xl font-bold text-red-400">{chartData[chartData.length-1]['Aktive Mitglieder']}</p>
             <p className="text-slate-300 text-sm mt-1">Aktive Mitglieder</p>
             <p className="text-slate-500 text-xs mt-1">Gesamt</p>
           </div>
@@ -800,7 +800,7 @@ export default function FitnessCRMDemo() {
           <div className="flex gap-3">
             <button 
               onClick={handleNewMember}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
             >
               <UserPlus className="w-4 h-4" />
               Neues Mitglied
@@ -935,7 +935,7 @@ export default function FitnessCRMDemo() {
                       member.membershipType === 'VIP' 
                         ? 'bg-purple-900/50 text-purple-300 border border-purple-700' 
                         : member.membershipType === 'Premium'
-                        ? 'bg-blue-900/50 text-blue-300 border border-blue-700'
+                        ? 'bg-slate-900/50 text-red-300 border border-red-700'
                         : 'bg-slate-700 text-slate-200 border border-slate-600'
                     }`}>
                       {member.membershipType}
@@ -971,7 +971,7 @@ export default function FitnessCRMDemo() {
                       <p className="text-lg font-bold text-white">{member.credits}</p>
                       <div className="w-full bg-slate-700 rounded-full h-2 mt-1">
                         <div 
-                          className="bg-blue-500 h-2 rounded-full" 
+                          className="bg-red-500 h-2 rounded-full" 
                           style={{width: `${(member.credits / 50) * 100}%`}}
                         ></div>
                       </div>
@@ -1071,7 +1071,7 @@ export default function FitnessCRMDemo() {
                         onClick={() => setMemberModalTab('overview')}
                         className={`px-4 py-2 text-sm font-medium transition-colors ${
                           memberModalTab === 'overview' 
-                            ? 'border-b-2 border-blue-500 text-white' 
+                            ? 'border-b-2 border-red-500 text-white' 
                             : 'text-slate-400 hover:text-white'
                         }`}>
                         Übersicht
@@ -1080,7 +1080,7 @@ export default function FitnessCRMDemo() {
                         onClick={() => setMemberModalTab('purchaseHistory')}
                         className={`px-4 py-2 text-sm font-medium transition-colors ${
                           memberModalTab === 'purchaseHistory' 
-                            ? 'border-b-2 border-blue-500 text-white' 
+                            ? 'border-b-2 border-red-500 text-white' 
                             : 'text-slate-400 hover:text-white'
                         }`}>
                         Kaufhistorie & Ausgaben
@@ -1198,10 +1198,10 @@ export default function FitnessCRMDemo() {
                     <div className="space-y-3">
                       <button 
                         onClick={() => handleAddCredits(selectedMember)}
-                        className="w-full flex items-center gap-3 p-3 bg-blue-900/50 hover:bg-blue-800/50 rounded-lg transition-colors"
+                        className="w-full flex items-center gap-3 p-3 bg-slate-900/50 hover:bg-slate-800/50 rounded-lg transition-colors"
                       >
-                        <Plus className="w-5 h-5 text-blue-300" />
-                        <span className="text-blue-300 font-medium">Credits hinzufügen</span>
+                        <Plus className="w-5 h-5 text-red-300" />
+                        <span className="text-red-300 font-medium">Credits hinzufügen</span>
                       </button>
                       <button 
                         onClick={() => {setActiveTab('classes'); setSelectedMember(null); showDemoNotification('Kursbuchung geöffnet');}}
@@ -1227,8 +1227,8 @@ export default function FitnessCRMDemo() {
                       <div className="p-3 bg-yellow-900/30 rounded-lg border-l-4 border-yellow-500">
                         <p className="text-sm text-yellow-200">Bevorzugt {selectedMember.preferredTime}</p>
                       </div>
-                      <div className="p-3 bg-blue-900/30 rounded-lg border-l-4 border-blue-500">
-                        <p className="text-sm text-blue-200">Liebt {selectedMember.favoriteClass}</p>
+                      <div className="p-3 bg-slate-900/30 rounded-lg border-l-4 border-red-500">
+                        <p className="text-sm text-red-200">Liebt {selectedMember.favoriteClass}</p>
                       </div>
                     </div>
                   </div>
@@ -1250,7 +1250,7 @@ export default function FitnessCRMDemo() {
             <h2 className="text-2xl font-bold text-white">Kursverwaltung</h2>
             <p className="text-slate-300">Verwalten Sie alle Ihre Fitnesskurse</p>
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+          <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
             <Plus className="w-4 h-4" />
             Neuer Kurs
           </button>
@@ -1306,7 +1306,7 @@ export default function FitnessCRMDemo() {
                 </button>
                 <button 
                   onClick={() => handleBookClass(classItem)}
-                  className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors"
+                  className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm transition-colors"
                 >
                   Buchen
                 </button>
@@ -1335,13 +1335,13 @@ export default function FitnessCRMDemo() {
               <DollarSign className="w-8 h-8 text-green-400" />
             </div>
           </div>
-          <div className="bg-slate-800/70 p-6 rounded-xl border-l-4 border-blue-500 shadow-lg">
+          <div className="bg-slate-800/70 p-6 rounded-xl border-l-4 border-red-500 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-300 text-sm font-medium">Offene Rechnungen</p>
                 <p className="text-3xl font-bold text-white">€2.340</p>
               </div>
-              <Clock className="w-8 h-8 text-blue-400" />
+              <Clock className="w-8 h-8 text-red-400" />
             </div>
           </div>
           <div className="bg-slate-800/70 p-6 rounded-xl border-l-4 border-purple-500 shadow-lg">
@@ -1503,7 +1503,7 @@ export default function FitnessCRMDemo() {
               
               <button 
                 onClick={() => showDemoNotification(`Kampagne für ${rec.product} wird erstellt...`)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm transition-colors"
               >
                 Marketingkampagne starten
               </button>
@@ -1589,11 +1589,8 @@ export default function FitnessCRMDemo() {
   );
 
   return (
-    <div 
-      className="min-h-screen bg-cover bg-fixed" 
-      style={{ backgroundImage: "url('https://images.unsplash.com/photo-1584735935634-25d54a583036?q=80&w=2874&auto=format&fit=crop')" }}
-    >
-      <div className="min-h-screen w-full bg-black/50 backdrop-blur-sm">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <div className="min-h-screen w-full">
       {/* Notification */}
       <AnimatePresence>
         {showNotification && (
@@ -1641,7 +1638,7 @@ export default function FitnessCRMDemo() {
               <div className="flex gap-3 mt-6">
                 <button 
                   onClick={() => {setShowNewMemberModal(false); showDemoNotification('Neues Mitglied registriert!');}}
-                  className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+                  className="flex-1 bg-red-500 text-white py-3 px-4 rounded-lg hover:bg-red-600 transition-colors"
                 >
                   Registrieren
                 </button>
@@ -1665,7 +1662,7 @@ export default function FitnessCRMDemo() {
                 <LogOut className="w-5 h-5" />
                 <span>Demo verlassen</span>
               </Link>
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
                 <Activity className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -1681,9 +1678,9 @@ export default function FitnessCRMDemo() {
                   <p className="text-lg font-bold text-white">{analytics.activeMembers}</p>
                   <p className="text-xs text-green-300">Aktive Mitglieder</p>
                 </div>
-                <div className="text-center px-3 py-2 bg-blue-900/30 rounded-lg border border-blue-700">
+                <div className="text-center px-3 py-2 bg-slate-900/30 rounded-lg border border-red-700">
                   <p className="text-lg font-bold text-white">{analytics.classesThisWeek}</p>
-                  <p className="text-xs text-blue-300">Kurse/Woche</p>
+                  <p className="text-xs text-red-300">Kurse/Woche</p>
                 </div>
                 <div className="text-center px-3 py-2 bg-purple-900/30 rounded-lg border border-purple-700">
                   <p className="text-lg font-bold text-white">€{analytics.monthlyRevenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</p>
@@ -1719,7 +1716,7 @@ export default function FitnessCRMDemo() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-3 px-6 py-4 border-b-4 transition-colors min-w-fit ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-white bg-slate-800/50'
+                    ? 'border-red-500 text-white bg-slate-800/50'
                     : 'border-transparent text-slate-300 hover:text-white hover:bg-slate-800/50'
                 }`}
               >

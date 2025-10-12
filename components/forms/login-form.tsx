@@ -45,9 +45,13 @@ export function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-white/90">Email</FormLabel>
               <FormControl>
-                <Input placeholder="you@example.com" {...field} style={{ color: 'black' }} />
+                <Input
+                  placeholder="you@example.com"
+                  {...field}
+                  className="rounded-xl border-white/10 bg-white/5 text-white placeholder-white/40 focus:border-red-500/50 focus:ring-red-500/20"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -58,16 +62,30 @@ export function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className="text-white/90">Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} style={{ color: 'black' }} />
+                <Input
+                  type="password"
+                  placeholder="••••••••"
+                  {...field}
+                  className="rounded-xl border-white/10 bg-white/5 text-white placeholder-white/40 focus:border-red-500/50 focus:ring-red-500/20"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        {error && <p className="text-sm font-medium text-destructive">{error}</p>}
-        <Button type="submit" className="w-full" style={{ color: 'black' }}>Login</Button>
+        {error && (
+          <div className="rounded-xl border border-red-500/20 bg-red-500/10 p-3">
+            <p className="text-sm text-red-400">{error}</p>
+          </div>
+        )}
+        <Button
+          type="submit"
+          className="w-full rounded-xl border border-white/20 bg-red-500 py-6 font-semibold text-white transition-all hover:bg-red-600"
+        >
+          Sign In
+        </Button>
       </form>
     </Form>
   );

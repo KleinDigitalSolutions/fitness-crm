@@ -5,8 +5,13 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE studios (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name TEXT NOT NULL,
-    slug TEXT UNIQUE NOT NULL,
+    slug TEXT UNIQUE,
     owner_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+    address JSONB,
+    phone TEXT,
+    email TEXT,
+    website TEXT,
+    logo_url TEXT,
     subscription_plan TEXT,
     subscription_status TEXT,
     settings JSONB,
@@ -17,21 +22,22 @@ COMMENT ON TABLE studios IS 'Main tenant entity for each fitness studio.';
 
 -- Profiles Table: User extension for both studio staff and members
 CREATE TABLE profiles (
-    id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
     studio_id UUID REFERENCES studios(id) ON DELETE CASCADE,
-    role TEXT NOT NULL,
+    role TEXT,
     first_name TEXT,
     last_name TEXT,
     avatar_url TEXT,
     phone TEXT,
     date_of_birth DATE,
     address JSONB,
-    emergency_contact TEXT,
+    emergency_contact JSONB,
     health_notes TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
-COMMENT ON TABLE profiles IS 'User profile information, extending the auth.users table.';
+COMMENT ON TABLE profiles IS 'User profile information, can be linked to auth.users or standalone.';
 
 -- Membership Types Table: Defines different membership plans
 CREATE TABLE membership_types (
@@ -82,6 +88,7 @@ CREATE TABLE class_types (
     difficulty TEXT,
     color TEXT,
     default_capacity INTEGER,
+    max_participants INTEGER,
     price DECIMAL(10, 2),
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -94,18 +101,37 @@ CREATE TABLE class_schedules (
     studio_id UUID NOT NULL REFERENCES studios(id) ON DELETE CASCADE,
     class_type_id UUID NOT NULL REFERENCES class_types(id) ON DELETE CASCADE,
     trainer_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
+    instructor_name TEXT,
     room TEXT,
     start_time TIMESTAMPTZ NOT NULL,
     end_time TIMESTAMPTZ NOT NULL,
     is_recurring BOOLEAN DEFAULT FALSE,
     recurrence_rule TEXT,
     capacity INTEGER,
+    max_participants INTEGER,
+    booked_count INTEGER DEFAULT 0,
     waitlist_capacity INTEGER,
     status TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 COMMENT ON TABLE class_schedules IS 'The schedule for actual class instances.';
+
+-- Payments Table: Track payments and invoices
+CREATE TABLE payments (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    studio_id UUID NOT NULL REFERENCES studios(id) ON DELETE CASCADE,
+    member_id UUID NOT NULL REFERENCES members(id) ON DELETE CASCADE,
+    amount DECIMAL(10, 2) NOT NULL,
+    payment_date TIMESTAMPTZ NOT NULL,
+    payment_method TEXT,
+    status TEXT NOT NULL,
+    description TEXT,
+    invoice_number TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+COMMENT ON TABLE payments IS 'Track all payments and invoices for members.';
 
 -- Create indexes for performance
 CREATE INDEX ON profiles (studio_id);
@@ -115,3 +141,5 @@ CREATE UNIQUE INDEX ON members (studio_id, member_number);
 CREATE INDEX ON class_types (studio_id);
 CREATE INDEX ON class_schedules (studio_id, start_time);
 CREATE INDEX ON class_schedules (trainer_id);
+CREATE INDEX ON payments (studio_id, member_id);
+CREATE INDEX ON payments (payment_date);

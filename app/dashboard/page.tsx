@@ -1,9 +1,9 @@
 import { createClient } from '@/lib/supabase/server';
-import { Users, DollarSign, Calendar } from 'lucide-react';
+import { Users, TrendingUp, Calendar, Activity } from 'lucide-react';
 import { MemberGrowthChart } from '@/components/dashboard/MemberGrowthChart';
 
 export default async function DashboardPage() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { count: memberCount } = await supabase
     .from('members')
     .select('*', { count: 'exact', head: true });
@@ -47,53 +47,74 @@ export default async function DashboardPage() {
   }, [] as { date: string; count: number }[]);
 
   return (
-    <div>
-      <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-6">
-        <div className="bg-white rounded-lg p-6 shadow">
-          <div className="flex items-center justify-between">
+    <div className="space-y-8">
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+        <p className="mt-2 text-white/60">Welcome back! Here's what's happening today.</p>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        {/* Total Members */}
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:bg-white/10">
+          <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Total Members</p>
-              <p className="text-3xl font-bold text-gray-900">{memberCount ?? '0'}</p>
+              <p className="text-xs uppercase tracking-wider text-white/50">Total Members</p>
+              <p className="mt-2 text-3xl font-bold text-white">{memberCount ?? '0'}</p>
+              <p className="mt-1 text-sm text-green-400">+12 this week</p>
             </div>
-            <div className="bg-blue-100 rounded-full p-3">
-              <Users className="w-6 h-6 text-blue-600" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10">
+              <Users className="h-6 w-6 text-red-400" />
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-lg p-6 shadow">
-          <div className="flex items-center justify-between">
+
+        {/* Active Members */}
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:bg-white/10">
+          <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Active Members</p>
-              <p className="text-3xl font-bold text-gray-900">{activeMemberCount ?? '0'}</p>
+              <p className="text-xs uppercase tracking-wider text-white/50">Active Members</p>
+              <p className="mt-2 text-3xl font-bold text-white">{activeMemberCount ?? '0'}</p>
+              <p className="mt-1 text-sm text-white/60">94.2% retention</p>
             </div>
-            <div className="bg-green-100 rounded-full p-3">
-              <Users className="w-6 h-6 text-green-600" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-500/10">
+              <Activity className="h-6 w-6 text-green-400" />
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-lg p-6 shadow">
-          <div className="flex items-center justify-between">
+
+        {/* Monthly Revenue */}
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:bg-white/10">
+          <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Monthly Revenue</p>
-              <p className="text-3xl font-bold text-gray-900">€{monthlyRevenue}</p>
+              <p className="text-xs uppercase tracking-wider text-white/50">Monthly Revenue</p>
+              <p className="mt-2 text-3xl font-bold text-white">€{monthlyRevenue.toLocaleString()}</p>
+              <p className="mt-1 text-sm text-green-400">+18% vs last month</p>
             </div>
-            <div className="bg-purple-100 rounded-full p-3">
-              <DollarSign className="w-6 h-6 text-purple-600" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10">
+              <TrendingUp className="h-6 w-6 text-emerald-400" />
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-lg p-6 shadow">
-          <div className="flex items-center justify-between">
+
+        {/* Classes This Week */}
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:bg-white/10">
+          <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Classes This Week</p>
-              <p className="text-3xl font-bold text-gray-900">{classesThisWeek ?? '0'}</p>
+              <p className="text-xs uppercase tracking-wider text-white/50">Classes This Week</p>
+              <p className="mt-2 text-3xl font-bold text-white">{classesThisWeek ?? '0'}</p>
+              <p className="mt-1 text-sm text-white/60">85% avg. attendance</p>
             </div>
-            <div className="bg-yellow-100 rounded-full p-3">
-              <Calendar className="w-6 h-6 text-yellow-600" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-500/10">
+              <Calendar className="h-6 w-6 text-orange-400" />
             </div>
           </div>
         </div>
       </div>
+
+      {/* Charts */}
       <MemberGrowthChart data={memberGrowthData ?? []} />
     </div>
+  );
+}
