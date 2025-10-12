@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://kleindigitalsolutions.de
+
+# Sitemaps
+Sitemap: https://kleindigitalsolutions.de/sitemap.xml

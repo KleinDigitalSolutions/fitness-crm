@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colour Harmoniser</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Slightly janky, but it works! Screen needs work  -->
+    <!-- Keys heavily inspired by various OP-1 Synth!  -->
+
+    <div class="key-container">
+    <div style="display: flex; gap: 3px">
+        <div style="display: grid;  gap: 3px">
+        <span class="key square" onclick="setHarmonyType('complementary')">
+            <label>
+            <svg width="25px" height="25px" viewBox="-7 -7 140 140" version="1.1" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill:currentColor;stroke-width:15;stroke:currentColor">
+                <g id="complementary">
+                <circle cx="64" cy="12.502" r="12.502" />
+                <circle cx="64" cy="115.498" r="12.502" style="stroke-width: 0;" />
+                </g>
+            </svg>
+            </label>
+        </span>
+        <span class="key square" onclick="setHarmonyType('triadic')"><label>
+            <svg width="25px" height="25px" viewBox="-7 -7 140 140" version="1.1" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill:currentColor;stroke-width:15;stroke:currentColor">
+                <g id="triadic">
+                <circle cx="64" cy="12.502" r="12.502" />
+                <path d="M119.426,96c-3.45,5.976 -11.103,8.026 -17.079,4.576c-5.975,-3.45 -8.026,-11.102 -4.576,-17.078c3.45,-5.976 11.103,-8.026 17.079,-4.576c5.975,3.45 8.026,11.102 4.576,17.078Z" style="stroke-width: 0;" />
+                <path d="M8.574,96c-3.45,-5.976 -1.399,-13.628 4.576,-17.078c5.976,-3.45 13.629,-1.4 17.079,4.576c3.45,5.976 1.399,13.628 -4.576,17.078c-5.976,3.45 -13.629,1.4 -17.079,-4.576Z" style="stroke-width: 0;" />
+                </g>
+            </svg>
+            </label>
+        </span>
+        </div>
+        <div class="screen">
+        <header>
+            <span class="led"></span>
+            <span>Colour Harmoniser</span>
+            <span>v1.0</span>
+        </header>
+        <div class="os-container">
+            <div class="os-element" style="--_colour: var(--selected-colour);">
+            </div>
+            <div class="control" data-harmony="triadic" id="screen" style="--sel-colour: var(--selected-colour);">
+            <span class="one"></span>
+            <span class="two"></span>
+            <span class="three"></span>
+            </div>
+        </div>
+        </div>
+        <div>
+        <div style="display: flex; gap: 3px; margin-bottom: 3px;">
+            <span class="key square" onclick="setHarmonyType('analogous')"><label>
+                <svg width="25px" height="25px" viewBox="-7 -7 140 140" version="1.1" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill:currentColor;stroke-width:15;stroke:currentColor">
+                <g id="analogous">
+                    <circle cx="64" cy="12.502" r="12.502" />
+                    <path d="M25.9,19.4c5.976,-3.45 13.628,-1.399 17.078,4.576c3.45,5.976 1.4,13.629 -4.576,17.079c-5.976,3.45 -13.628,1.399 -17.078,-4.576c-3.45,-5.976 -1.4,-13.629 4.576,-17.079Z" style="stroke-width: 0;" />
+                    <path d="M102.1,19.4c5.976,3.45 8.026,11.103 4.576,17.079c-3.45,5.975 -11.102,8.026 -17.078,4.576c-5.976,-3.45 -8.026,-11.103 -4.576,-17.079c3.45,-5.975 11.102,-8.026 17.078,-4.576Z" style="stroke-width: 0;" />
+                </g>
+                </svg>
+            </label></span>
+        </div>
+        <div style="display: flex; gap: 3px;">
+
+            <span class="key square" onclick="setHarmonyType('split')"><label>
+
+                <svg width="25px" height="25px" viewBox="-7 -7 140 140" version="1.1" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill:currentColor;stroke-width:15;stroke:currentColor">
+                <g id="split">
+                    <circle cx="64" cy="12.502" r="12.502" />
+                    <path d="M96,119.426c-5.976,3.45 -13.628,1.399 -17.078,-4.576c-3.45,-5.976 -1.4,-13.629 4.576,-17.079c5.976,-3.45 13.628,-1.399 17.078,4.576c3.45,5.976 1.4,13.629 -4.576,17.079Z" style="stroke-width: 0;" />
+                    <path d="M32,119.426c-5.976,-3.45 -8.026,-11.103 -4.576,-17.079c3.45,-5.975 11.102,-8.026 17.078,-4.576c5.976,3.45 8.026,11.103 4.576,17.079c-3.45,5.975 -11.102,8.026 -17.078,4.576Z" style="stroke-width: 0;" />
+                </g>
+                </svg>
+            </label></span>
+
+        </div>
+        </div>
+    </div>
+    <!-- <span class="key tall"><label>4</label></span>
+        <span class="key large-dial"><label>5</label></span> -->
+
+    <div style="display: flex; gap: 3px; margin-top: 3px;">
+        <span class="key square" onclick="reset()" role="button" aria-label="Reset"><label>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="25px" height="25px">
+            <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+            </svg>
+        </label></span>
+        <label id="dial" class="key dial"><span class="dial-right">HUE</span>
+        <input type="range" id="slider" min="0" max="360" value="50" />
+        </label>
+        <span class="key rectangle coloured" id="colour-display"><label></label></span>
+        <span class="key rectangle end" onclick="setHarmonyType('tetradic')"><label>
+            <svg width="25px" height="25px" viewBox="-7 -7 140 140" version="1.1" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill:currentColor;stroke-width:15;stroke:currentColor">
+            <g id="tetradic">
+                <path d="M8.574,32c3.45,-5.976 11.103,-8.026 17.079,-4.576c5.975,3.45 8.026,11.102 4.576,17.078c-3.45,5.976 -11.103,8.026 -17.079,4.576c-5.975,-3.45 -8.026,-11.102 -4.576,-17.078Z" style="stroke-width: 0;" />
+                <path d="M119.426,96c-3.45,5.976 -11.103,8.026 -17.079,4.576c-5.975,-3.45 -8.026,-11.102 -4.576,-17.078c3.45,-5.976 11.103,-8.026 17.079,-4.576c5.975,3.45 8.026,11.102 4.576,17.078Z" style="stroke-width: 0;" />
+                <circle cx="64" cy="115.498" r="12.502" style="stroke-width: 0;" />
+                <circle cx="64" cy="12.502" r="12.502" />
+            </g>
+            </svg>
+        </label></span>
+    </div>
+    </div>
+    </div>
+
+    <p>
+    Change hue by dragging left or right from hue control.
+    <br />
+    Display different colour harmonies by clicking buttons.
+    </p>
+
+    <script src="script.js"></script>
+</body>
+</html>

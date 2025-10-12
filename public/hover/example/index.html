@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Premium Immobilien Portfolio</title>
+		<meta name="description" content="Entdecken Sie exklusive Immobilien weltweit - Von modernen Stadtwohnungen bis zu luxuriösen Villen." />
+		<meta name="keywords" content="immobilien, luxusimmobilien, wohnungen, häuser, villen, penthouse, immobilienportal" />
+		<meta name="author" content="Klein Digital Solutions" />
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
+	<style>
+		.demo-header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 1000;
+			background: rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			padding: 1rem 1.5rem;
+			display: flex;
+			justify-content: flex-start;
+		}
+
+		.exit-button {
+			background: none;
+			border: none;
+			cursor: pointer;
+			padding: 0.5rem;
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			width: 30px;
+			height: 30px;
+		}
+
+		.exit-button span {
+			display: block;
+			width: 100%;
+			height: 2px;
+			background: white;
+			transition: all 0.3s ease;
+		}
+
+		.exit-button:hover span {
+			background: rgba(255, 255, 255, 0.7);
+		}
+	</style>
+	</head>
+	<body class="loading">
+		<header class="demo-header">
+			<button class="exit-button" onclick="window.history.back()" aria-label="Exit Demo">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</header>
+		<svg class="hidden">
+			<symbol id="icon-arrow" viewBox="0 0 24 24">
+				<title>arrow</title>
+				<polygon points="6.3,12.8 20.9,12.8 20.9,11.2 6.3,11.2 10.2,7.2 9,6 3.1,12 9,18 10.2,16.8 "/>
+			</symbol>
+			<symbol id="icon-drop" viewBox="0 0 24 24">
+				<title>drop</title>
+				<path d="M12,21c-3.6,0-6.6-3-6.6-6.6C5.4,11,10.8,4,11.4,3.2C11.6,3.1,11.8,3,12,3s0.4,0.1,0.6,0.3c0.6,0.8,6.1,7.8,6.1,11.2C18.6,18.1,15.6,21,12,21zM12,4.8c-1.8,2.4-5.2,7.4-5.2,9.6c0,2.9,2.3,5.2,5.2,5.2s5.2-2.3,5.2-5.2C17.2,12.2,13.8,7.3,12,4.8z"/><path d="M12,18.2c-0.4,0-0.7-0.3-0.7-0.7s0.3-0.7,0.7-0.7c1.3,0,2.4-1.1,2.4-2.4c0-0.4,0.3-0.7,0.7-0.7c0.4,0,0.7,0.3,0.7,0.7C15.8,16.5,14.1,18.2,12,18.2z"/>
+			</symbol>
+			<svg id="icon-github" viewBox="0 0 33 33">
+				<title>github</title>
+				<path d="M16.608.455C7.614.455.32 7.748.32 16.745c0 7.197 4.667 13.302 11.14 15.456.815.15 1.112-.353 1.112-.785 0-.386-.014-1.411-.022-2.77-4.531.984-5.487-2.184-5.487-2.184-.741-1.882-1.809-2.383-1.809-2.383-1.479-1.01.112-.99.112-.99 1.635.115 2.495 1.679 2.495 1.679 1.453 2.489 3.813 1.77 4.741 1.353.148-1.052.569-1.77 1.034-2.177-3.617-.411-7.42-1.809-7.42-8.051 0-1.778.635-3.233 1.677-4.371-.168-.412-.727-2.069.16-4.311 0 0 1.367-.438 4.479 1.67a15.602 15.602 0 0 1 4.078-.549 15.62 15.62 0 0 1 4.078.549c3.11-2.108 4.475-1.67 4.475-1.67.889 2.242.33 3.899.163 4.311C26.37 12.66 27 14.115 27 15.893c0 6.258-3.809 7.635-7.437 8.038.584.503 1.105 1.497 1.105 3.017 0 2.177-.02 3.934-.02 4.468 0 .436.294.943 1.12.784 6.468-2.159 11.131-8.26 11.131-15.455 0-8.997-7.294-16.29-16.291-16.29"></path>
+			</svg>
+		</svg>
+		<main>
+			<div class="message">Some message for mobile if needed.</div>
+			<div class="grid">
+				<div class="grid__item theme-1">
+					<div class="grid__item-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+						<h2 class="grid__item-title grid__item-title--small">LUXHAUS Immobilien</h2>
+						<p class="grid__item-text" style="margin-top: 10px;">Ihr Schlüssel zu exklusiven Wohnträumen weltweit</p>
+					</div>
+				</div>
+				<div class="grid__item grid__item--bg theme-2">
+					<div class="grid__item-img" data-displacement="img/displacement/8.jpg" data-intensity="-0.65" data-speedIn="1.2" data-speedOut="1.2">
+						<img src="../../images/hover-effect/jakub-zerdzicki-Ebj87ehFNNU-unsplash.jpg" alt="Image"/>
+						<img src="../../images/hover-effect/avi-werde-hHz4yrvxwlA-unsplash.jpg" alt="Image"/>
+					</div>
+					<div class="grid__item-content">
+						<span class="grid__item-meta">Los Angeles</span>
+						<h2 class="grid__item-title">Moderne Penthouse</h2>
+						<h3 class="grid__item-subtitle">
+							<span>Luxuriöse Dachgeschosswohnungen mit Panoramablick</span>
+							<a class="grid__item-link" href="#">Mehr erfahren</a>
+						</h3>
+					</div>
+				</div>
+				<div class="grid__item grid__item--bg theme-3">
+					<div class="grid__item-img" data-displacement="img/displacement/4.png" data-intensity="0.2" data-speedIn="1.6" data-speedOut="1.6">
+						<img src="../../images/hover-effect/alexandr-hovhannisyan-OIVvwDIvmsk-unsplash.jpg" alt="Image"/>
+						<img src="../../images/hover-effect/grant-lemons-jTCLppdwSEc-unsplash.jpg" alt="Image"/>
+					</div>
+					<div class="grid__item-content">
+						<span class="grid__item-meta">Toskana</span>
+						<h2 class="grid__item-title">Landhaus Villa</h2>
+						<h3 class="grid__item-subtitle">
+							<span>Toskanische Traumvilla mit Weinberg</span>
+							<a class="grid__item-link" href="#">Jetzt ansehen</a>
+						</h3>
+					</div>
+				</div>
+				<div class="grid__item theme-4">
+					<div class="grid__item-content">
+						<nav class="grid__item-nav">
+							<a href="#" class="grid__item-link">Über uns</a>
+							<a href="#" class="grid__item-link">Service</a>
+							<a href="#" class="grid__item-link">Kontakt</a>
+						</nav>
+						<h2 class="grid__item-title grid__item-title--small">Ihr Traumhaus wartet auf Sie</h2>
+						<p class="grid__item-text">Wir bieten exklusive Immobilien in den besten Lagen weltweit. Vom modernen Stadtapartment bis zur luxuriösen Villa am Meer.</p>
+						<a href="#" class="grid__item-link">Mehr erfahren</a>
+					</div>
+				</div>
+				<div class="grid__item theme-5">
+					<div class="grid__item-content">
+						<nav class="grid__item-nav">
+							<a href="#" class="grid__item-link">Finanzierung</a>
+							<a href="#" class="grid__item-link">Beratung</a>
+						</nav>
+						<h2 class="grid__item-title grid__item-title--small">Investieren Sie in Ihre Zukunft</h2>
+						<p class="grid__item-text">Professionelle Beratung für Ihre Immobilieninvestition. Wir begleiten Sie von der Suche bis zum Vertragsabschluss.</p>
+						<a href="#" class="grid__item-link">Mehr erfahren</a>
+					</div>
+				</div>
+				<div class="grid__item grid__item--bg theme-6">
+					<div class="grid__item-img" data-displacement="img/displacement/1.jpg" data-intensity="-0.4" data-speedIn="0.7" data-speedOut="0.3" data-easing="Sine.easeOut">
+						<img src="../../images/hover-effect/frames-for-your-heart-2d4lAQAlbDA-unsplash.jpg" alt="Image"/>
+						<img src="../../images/hover-effect/cytonn-photography-TVyhDpvL8MY-unsplash.jpg" alt="Image Alt"/>
+					</div>
+					<div class="grid__item-content">
+						<span class="grid__item-meta">Stockholm</span>
+						<h2 class="grid__item-title">Skandinavisches Design</h2>
+						<h3 class="grid__item-subtitle">
+							<span>Minimalistische Loft-Wohnungen im Stadtzentrum</span>
+							<a class="grid__item-link" href="#">Mehr erfahren</a>
+						</h3>
+					</div>
+				</div>
+				<div class="grid__item grid__item--bg theme-7">
+					<div class="grid__item-img" data-displacement="img/displacement/7.jpg" data-intensity="0.9" data-speedIn="0.8" data-speedOut="0.4" data-easing="Circ.easeOut">
+						<img src="../../images/hover-effect/zac-gudakov-wwqZ8CM21gg-unsplash.jpg" alt="Image"/>
+						<img src="../../images/hover-effect/joel-filipe-RFDP7_80v5A-unsplash.jpg" alt="Image Alt"/>
+					</div>
+					<div class="grid__item-content">
+						<span class="grid__item-meta">Marbella</span>
+						<h2 class="grid__item-title">Luxus am Meer</h2>
+						<h3 class="grid__item-subtitle">
+							<span>Exklusive Strandvillen an der Costa del Sol</span>
+							<a class="grid__item-link" href="#">Jetzt ansehen</a>
+						</h3>
+					</div>
+				</div>
+				<div class="grid__item theme-8">
+					<div class="grid__item-content">
+						<nav class="grid__item-nav">
+							<a href="#" class="grid__item-link">Verkaufen</a>
+							<a href="#" class="grid__item-link">Bewertung</a>
+							<a href="#" class="grid__item-link">Service</a>
+						</nav>
+						<h2 class="grid__item-title grid__item-title--small">Ihre Immobilie verkaufen?</h2>
+						<p class="grid__item-text">Kostenlose Immobilienbewertung durch unsere Experten. Faire Preise und schnelle Abwicklung garantiert.</p>
+						<a href="#" class="grid__item-link">Mehr erfahren</a>
+					</div>
+				</div>
+				<div class="grid__item theme-9">
+					<div class="grid__item-content">
+						<nav class="grid__item-nav">
+							<a href="#" class="grid__item-link">Mieten</a>
+							<a href="#" class="grid__item-link">Kaufen</a>
+							<a href="#" class="grid__item-link">Anlegen</a>
+						</nav>
+						<h2 class="grid__item-title grid__item-title--small">Flexible Mietoptionen</h2>
+						<p class="grid__item-text">Hochwertige Mietwohnungen in Top-Lagen. Kurz- und Langzeitmiete verfügbar mit umfassendem Service.</p>
+						<a href="#" class="grid__item-link">Mehr erfahren</a>
+					</div>
+				</div>
+				<div class="grid__item grid__item--bg theme-10">
+					<div class="grid__item-img" data-displacement="img/displacement/10.jpg" data-intensity="0.7" data-speedIn="1" data-speedOut="0.5" data-easing="Power2.easeOut">
+						<img src="../../images/hover-effect/etienne-beauregard-riverin-B0aCvAVSX8E-unsplash.jpg" alt="Image"/>
+						<img src="../../images/hover-effect/lotus-design-n-print-wRzBarqn3hs-unsplash.jpg" alt="Image Alt"/>
+					</div>
+					<div class="grid__item-content">
+						<span class="grid__item-meta">München</span>
+						<h2 class="grid__item-title">Historisches Stadthaus</h2>
+						<h3 class="grid__item-subtitle">
+							<span>Sanierte Altbauwohnung in bester Innenstadtlage</span>
+							<a class="grid__item-link" href="#">Jetzt ansehen</a>
+						</h3>
+					</div>
+				</div>
+				<div class="grid__item grid__item--bg theme-11">
+					<div class="grid__item-img" data-displacement="img/displacement/6.jpg" data-intensity="0.6" data-speedIn="1.2" data-speedOut="0.5">
+						<img src="../../images/hover-effect/ronnie-george-9gGvNWBeOq4-unsplash.jpg" alt="Image"/>
+						<img src="../../images/hover-effect/tierra-mallorca-rgJ1J8SDEAY-unsplash.jpg" alt="Image Alt"/>
+					</div>
+					<div class="grid__item-content">
+						<span class="grid__item-meta">Kopenhagen</span>
+						<h2 class="grid__item-title">Nachhaltig Wohnen</h2>
+						<h3 class="grid__item-subtitle">
+							<span>Energieeffiziente Neubauten mit Zukunft</span>
+							<a class="grid__item-link" href="#">Mehr erfahren</a>
+						</h3>
+					</div>
+				</div>
+				<div class="grid__item theme-12">
+					<div class="grid__item-content">
+						<nav class="grid__item-nav">
+							<a href="#" class="grid__item-link">Investieren</a>
+							<a href="#" class="grid__item-link">Rendite</a>
+							<a href="#" class="grid__item-link">Portfolio</a>
+						</nav>
+						<h2 class="grid__item-title grid__item-title--small">Kapitalanlage Immobilien</h2>
+						<p class="grid__item-text">Renditestark investieren in Premium-Immobilien. Professionelles Portfoliomanagement für nachhaltige Wertsteigerung.</p>
+						<a href="#" class="grid__item-link">Mehr erfahren</a>
+					</div>
+				</div>
+
+				<div class="grid__item theme-13">
+					<div class="grid__item-content">
+						<nav class="grid__item-nav">
+							<a href="#" class="grid__item-link">FAQ</a>
+							<a href="#" class="grid__item-link">Ratgeber</a>
+							<a href="#" class="grid__item-link">Support</a>
+						</nav>
+						<h2 class="grid__item-title grid__item-title--small">Käufer-Ratgeber</h2>
+						<p class="grid__item-text">Alles was Sie über den Immobilienkauf wissen müssen. Von der Finanzierung bis zur Objektübergabe.</p>
+						<a href="#" class="grid__item-link">Mehr erfahren</a>
+					</div>
+				</div>
+				<div class="grid__item grid__item--bg theme-14">
+					<div class="grid__item-img" data-displacement="img/displacement/11.jpg" data-intensity="0.4" data-speedIn="1" data-speedOut="1">
+						<img src="../../images/hover-effect/webaliser-_TPTXZd9mOo-unsplash.jpg" alt="Image"/>
+						<img src="../../images/hover-effect/francesca-tosolini-tHkJAMcO3QE-unsplash.jpg" alt="Image Alt"/>
+					</div>
+					<div class="grid__item-content">
+						<span class="grid__item-meta">Miami</span>
+						<h2 class="grid__item-title">Strandapartments</h2>
+						<h3 class="grid__item-subtitle">
+							<span>Luxuriöse Apartments direkt am Strand von Miami</span>
+							<a class="grid__item-link" href="#">Jetzt ansehen</a>
+						</h3>
+					</div>
+				</div>
+				<div class="grid__item grid__item--bg theme-15">
+					<div class="grid__item-img" data-displacement="img/displacement/2.jpg" data-intensity="0.6" data-speedIn="1" data-speedOut="1">
+						<img src="../../images/hover-effect/dillon-kydd-2keCPb73aQY-unsplash.jpg" alt="Image"/>
+						<img src="../../images/hover-effect/avi-werde-hHz4yrvxwlA-unsplash.jpg" alt="Image Alt"/>
+					</div>
+					<div class="grid__item-content">
+						<span class="grid__item-meta">Berlin</span>
+						<h2 class="grid__item-title">Urban Living</h2>
+						<h3 class="grid__item-subtitle">
+							<span>Trendige Lofts in Berlins Szenebezirken</span>
+							<a class="grid__item-link" href="#">Jetzt ansehen</a>
+						</h3>
+					</div>
+				</div>
+				<div class="grid__item theme-16">
+					<div class="grid__item-content">
+						<nav class="grid__item-nav">
+							<a href="#" class="grid__item-link">Über uns</a>
+							<a href="#" class="grid__item-link">Team</a>
+							<a href="#" class="grid__item-link">Karriere</a>
+						</nav>
+						<h2 class="grid__item-title grid__item-title--small">Premium Service inklusive</h2>
+						<p class="grid__item-text">Persönliche Betreuung von Anfang bis Ende. Unsere Experten stehen Ihnen mit Rat und Tat zur Seite.</p>
+						<a href="#" class="grid__item-link">Mehr erfahren</a>
+					</div>
+				</div>
+				<div class="grid__item theme-17">
+					<div class="grid__item-content">
+						<nav class="grid__item-nav">
+							<a href="#" class="grid__item-link">Besichtigung</a>
+							<a href="#" class="grid__item-link">Termin</a>
+							<a href="#" class="grid__item-link">360° Tour</a>
+						</nav>
+						<h2 class="grid__item-title grid__item-title--small">Virtuelle Besichtigungen</h2>
+						<p class="grid__item-text">Entdecken Sie Ihre Traumimmobilie bequem von zu Hause aus. Hochwertige 360° Rundgänge und Live-Videobesichtigungen verfügbar.</p>
+						<a href="#" class="grid__item-link">Mehr erfahren</a>
+					</div>
+				</div>
+				<div class="grid__item grid__item--bg theme-18">
+					<div class="grid__item-img" data-displacement="img/displacement/15.jpg" data-intensity="-0.1" data-speedIn="0.4" data-speedOut="0.4" data-easing="power2.easeInOut">
+						<img src="img/Img7.jpg" alt="Image"/>
+						<img src="img/Img14.jpg" alt="Image Alt"/>
+					</div>
+					<div class="grid__item-content">
+						<span class="grid__item-meta">Hamburg</span>
+						<h2 class="grid__item-title">Hafenblick Exklusiv</h2>
+						<h3 class="grid__item-subtitle">
+							<span>Designer-Wohnungen mit Blick auf die Elbe</span>
+							<a class="grid__item-link" href="#">Jetzt ansehen</a>
+						</h3>
+					</div>
+				</div>
+				<div class="grid__item grid__item--bg theme-19">
+					<div class="grid__item-img" data-displacement="img/displacement/13.jpg" data-intensity="0.2">
+						<img src="img/Img8.jpg" alt="Image"/>
+						<img src="img/Img15.jpg" alt="Image Alt"/>
+					</div>
+					<div class="grid__item-content">
+						<span class="grid__item-meta">Paris</span>
+						<h2 class="grid__item-title">Pariser Eleganz</h2>
+						<h3 class="grid__item-subtitle">
+							<span>Stilvolle Apartments im Herzen von Paris</span>
+							<a class="grid__item-link" href="#">Jetzt ansehen</a>
+						</h3>
+					</div>
+				</div>
+				<div class="grid__item theme-20">
+					<div class="grid__item-content">
+						<nav class="grid__item-nav">
+							<a href="#" class="grid__item-link">Neubau</a>
+							<a href="#" class="grid__item-link">Projekte</a>
+							<a href="#" class="grid__item-link">Reservieren</a>
+						</nav>
+						<h2 class="grid__item-title grid__item-title--small">Neubau-Projekte</h2>
+						<p class="grid__item-text">Investieren Sie in die Zukunft mit unseren exklusiven Neubauprojekten. Moderne Architektur trifft auf erstklassige Lage.</p>
+						<a href="#" class="grid__item-link">Mehr erfahren</a>
+					</div>
+				</div>
+				<div class="grid__item theme-21">
+					<div class="grid__item-content">
+						<nav class="grid__item-nav">
+							<a href="#" class="grid__item-link">Luxus</a>
+							<a href="#" class="grid__item-link">Villen</a>
+							<a href="#" class="grid__item-link">Exklusiv</a>
+						</nav>
+						<h2 class="grid__item-title grid__item-title--small">Luxus-Immobilien weltweit</h2>
+						<p class="grid__item-text">Einzigartige Luxusimmobilien an den exklusivsten Standorten der Welt. Für höchste Ansprüche und außergewöhnliche Wohnträume.</p>
+						<a href="#" class="grid__item-link">Mehr erfahren</a>
+					</div>
+				</div>
+				<div class="grid__item grid__item--bg theme-22">
+					<div class="grid__item-img" data-displacement="img/displacement/8.jpg" data-intensity="-0.8">
+						<img src="img/Img26.jpg" alt="Image"/>
+						<img src="img/Img25.jpg" alt="Image Alt"/>
+					</div>
+					<div class="grid__item-content">
+						<span class="grid__item-meta">Dublin</span>
+						<h2 class="grid__item-title">Stadtvillen</h2>
+						<h3 class="grid__item-subtitle">
+							<span>Charmante Stadthäuser im irischen Stil</span>
+							<a class="grid__item-link" href="#">Mehr erfahren</a>
+						</h3>
+					</div>
+				</div>
+			</div>
+		</main>
+		<script src="js/imagesloaded.pkgd.min.js"></script>
+		<script src="js/three.min.js"></script>
+		<script src="js/gsap.min.js"></script>
+		<script src="../dist/hover-effect.umd.js"></script>
+		<script>
+			imagesLoaded( document.querySelectorAll('img'), () => {
+				document.body.classList.remove('loading');
+			});
+
+			Array.from(document.querySelectorAll('.grid__item-img')).forEach((el) => {
+				const imgs = Array.from(el.querySelectorAll('img'));
+				new hoverEffect({
+					parent: el,
+					intensity: el.dataset.intensity || undefined,
+					speedIn: el.dataset.speedin || undefined,
+					speedOut: el.dataset.speedout || undefined,
+					easing: el.dataset.easing || undefined,
+					hover: el.dataset.hover || undefined,
+					image1: imgs[0].getAttribute('src'),
+					image2: imgs[1].getAttribute('src'),
+					displacementImage: el.dataset.displacement
+				});
+			});
+		</script>
+	</body>
+</html>

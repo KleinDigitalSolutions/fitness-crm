@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="de" class="no-js">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Über Uns - Fashion House</title>
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<style>
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+:root {
+	font-size: 16px;
+	--page-padding: 1.5rem;
+	--color-text: #fff;
+	--color-bg: #12100e;
+	--color-link: rgba(255,255,255,0.6);
+	--color-link-hover: #fff;
+	--color-bg-1: #2f251e;
+	--color-bg-2: #43392f;
+	--color-bg-3: var(--color-bg-1);
+	--color-bg-4: var(--color-bg-2);
+	--color-bg-5: var(--color-bg-1);
+	--color-bg-6: var(--color-bg-2);
+}
+
+body {
+	margin: 0;
+	color: var(--color-text);
+	background-color: var(--color-bg);
+	font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	width: 100%;
+	overflow-x: hidden;
+}
+
+.demo-2,
+.demo-4,
+.demo-6,
+.demo-8,
+.demo-10,
+.demo-12,
+.demo-14 {
+	--color-text: #000;
+	--color-bg: #e1e1e1;
+	--color-link: rgba(0,0,0,0.6);
+	--color-link-hover: #000;
+	--color-bg-1: #9d9d9d;
+	--color-bg-2: #c7c7c7;
+	--color-bg-3: var(--color-bg-1);
+	--color-bg-4: var(--color-bg-2);
+	--color-bg-5: var(--color-bg-1);
+	--color-bg-6: var(--color-bg-2);
+}
+
+/* Page Loader */
+.js .loading::before,
+.js .loading::after {
+	content: '';
+	position: fixed;
+	z-index: 5000;
+}
+
+.js .loading::before {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--color-bg);
+}
+
+.js .loading::after {
+	top: 50%;
+	left: 50%;
+	width: 60px;
+	height: 60px;
+	margin: -30px 0 0 -30px;
+	border-radius: 50%;
+	opacity: 0.4;
+	background: var(--color-link);
+	animation: loaderAnim 0.7s linear infinite alternate forwards;
+}
+
+@keyframes loaderAnim {
+	to {
+		opacity: 1;
+		transform: scale3d(0.5,0.5,1);
+	}
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+i {
+	font-style: normal;
+	font-weight: 400;
+}
+
+.content {
+	padding: var(--page-padding);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.text-large {
+	font-size: clamp(1.5rem,5vw,3rem);
+	max-width: 900px;
+	margin: 0 0 0.85em 0;
+	line-height: 1.2;
+	font-variation-settings: "slnt" 0, "wdth" 100, "wght" 500, "INKT" 100;
+}
+
+.content--sticky {
+	width: 100vw;
+	position: sticky;
+	top: 0;
+	--offset: 0px;
+	top: var(--offset);
+	height: calc(100vh - var(--offset));
+}
+
+.content--card {
+	display: flex;
+	flex-direction: column;
+	height: 80vh;
+	width: 95vw;
+	max-width: 500px;
+	aspect-ratio: 0.8;
+	top: 10vh;
+	margin: auto;
+	border-radius: 14px;
+	gap: 3vh;
+	text-align: center;
+	margin-bottom: 5vh;
+}
+
+.content--card .content__title {
+	font-size: clamp(1.5rem,4vw,3.5rem);
+}
+
+.content--card .content__title i {
+	display: block;
+}
+
+.content__img {
+	grid-area: content-img;
+	width: 50%;
+	max-width: 300px;
+	height: auto;
+}
+
+.content__img--small {
+	height: 35%;
+	width: auto;
+}
+
+.spacer {
+	margin-top: 20vh;
+}
+
+.content__title {
+	grid-area: content-title;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+	line-height: 1;
+	font-weight: 900;
+	font-size: clamp(2rem,6vw,5rem);
+	margin: 0;
+}
+
+.content__text {
+	margin: 0;
+	max-width: 500px;
+	grid-area: content-text;
+	text-align: center;
+	line-height: 1.5;
+	padding: 0 1rem;
+	backface-visibility: hidden;
+	font-size: clamp(0.95rem, 3.5vw, 1.125rem);
+}
+
+.content--intro {
+	padding-top: 25vh;
+	padding-bottom: 25vh;
+	z-index: 2;
+}
+
+.content--outro {
+	padding-top: 15vh;
+	padding-bottom: 10vh;
+}
+
+.infinite-scroll-section {
+	min-height: 200vh;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	position: relative;
+	background: var(--color-bg);
+	padding: 5vh 2rem 10vh 2rem;
+}
+
+.rotating-final-image {
+	width: 60vw;
+	max-width: 500px;
+	height: auto;
+	user-select: none;
+	transition: transform 0.1s ease-out;
+}
+
+.bg-1 { background: var(--color-bg-1); }
+.bg-2 { background: var(--color-bg-2); }
+.bg-3 { background: var(--color-bg-3); }
+.bg-4 { background: var(--color-bg-4); }
+.bg-5 { background: var(--color-bg-5); }
+.bg-6 { background: var(--color-bg-6); }
+
+.frame {
+	padding: var(--page-padding);
+	position: relative;
+	display: grid;
+	z-index: 1000;
+	width: 100%;
+	grid-row-gap: 1rem;
+	grid-column-gap: 2rem;
+	justify-items: start;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+
+.frame--header {
+	height: 100%;
+	z-index: 3000;
+	grid-template-areas: 'heading';
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	position: relative;
+}
+
+.frame--header .bg-image {
+	position: absolute;
+	width: auto;
+	z-index: 0;
+	pointer-events: none;
+	opacity: 0.3;
+}
+
+.frame--header .bg-image-1 {
+	right: 35%;
+	top: 35%;
+	height: 50%;
+	animation: rotate 30s linear infinite;
+	opacity: 0.7;
+}
+
+.frame--header .bg-image-2 {
+	left: 5%;
+	top: 10%;
+	height: 30%;
+	animation: rotate 40s linear infinite reverse;
+}
+
+.frame--header .bg-image-3 {
+	right: 5%;
+	bottom: 15%;
+	height: 25%;
+	animation: rotate 35s linear infinite;
+	opacity: 0.5;
+}
+
+.frame--header .bg-image-4 {
+	left: 15%;
+	bottom: 10%;
+	height: 35%;
+	animation: rotate 45s linear infinite reverse;
+	opacity: 0.5;
+}
+
+.frame--header .bg-image-5 {
+	right: 20%;
+	top: 5%;
+	height: 20%;
+	animation: rotate 50s linear infinite;
+	opacity: 0.5;
+}
+
+.frame__heading {
+	grid-area: heading;
+	align-self: center;
+	justify-self: center;
+	width: 100%;
+	max-width: 800px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	margin-top: 0;
+	padding: 0;
+	position: relative;
+	z-index: 10;
+}
+
+.frame__heading h2 {
+	margin: 0 0 1rem 0;
+	line-height: 0.9;
+	text-transform: uppercase;
+	font-size: clamp(2.5rem,12vw,7rem);
+	letter-spacing: 0.02em;
+	font-weight: 900;
+	opacity: 0;
+	transform: translateY(30px);
+	animation: fadeInUp 1s ease-out 0.3s forwards;
+}
+
+.frame__heading p {
+	margin: 0;
+	opacity: 0;
+	transform: translateY(20px);
+	animation: fadeInUp 1s ease-out 0.6s forwards;
+}
+
+@keyframes fadeInUp {
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.text-meta {
+	font-size: clamp(0.9rem, 3.5vw, 1rem);
+	font-weight: 400;
+}
+
+@media screen and (max-width: 62.99em) {
+	.frame--header {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+	.frame--header .bg-image-1 {
+		height: 35%;
+		right: 35%;
+		top: 30%;
+	}
+	.frame--header .bg-image-2,
+	.frame--header .bg-image-3,
+	.frame--header .bg-image-4,
+	.frame--header .bg-image-5 {
+		height: 20%;
+	}
+	.frame__heading h2 {
+		font-size: clamp(2rem, 10vw, 4rem);
+	}
+	.content--card {
+		width: 90vw;
+		max-width: 400px;
+		height: 70vh;
+		gap: 2vh;
+	}
+	.content__img--small {
+		height: 25%;
+	}
+}
+
+@media screen and (min-width: 63em) {
+	body {
+		--page-padding: 2rem 3rem;
+	}
+	.content--card {
+		width: 50vw;
+	}
+	.frame--header {
+		height: 100vh;
+		grid-template-areas: 'heading';
+		padding-left: 3rem;
+	}
+	.frame__heading {
+		margin-top: 0;
+	}
+	.frame__heading h2 {
+		white-space: nowrap;
+	}
+	.frame__heading p {
+		margin: 0 0 0 auto;
+	}
+}
+	</style>
+	<script>document.documentElement.className="js";</script>
+</head>
+<body class="loading demo-8">
+	<main>
+		<header class="frame frame--header">
+			<img src="/images/10.png" alt="" class="bg-image bg-image-1" />
+			<img src="/images/1.png" alt="" class="bg-image bg-image-2" />
+			<img src="/images/7.png" alt="" class="bg-image bg-image-3" />
+			<img src="/images/12.png" alt="" class="bg-image bg-image-4" />
+			<img src="/images/5.png" alt="" class="bg-image bg-image-5" />
+			<div class="frame__heading">
+				<h2 class="content__title"><i>Fashion</i> House</h2>
+				<p class="text-meta">Zeitlose Eleganz trifft moderne Coolness.</p>
+			</div>
+		</header>
+		<div class="content content--highlight content--intro">
+			<p class="text-large intro-text">Mode ist mehr als Kleidung. Sie ist Ausdruck, Identität und Kunst. Sie erzählt Geschichten, zeigt Persönlichkeit und verbindet Menschen. Willkommen bei Fashion House – wo zeitlose Eleganz auf moderne Coolness trifft. Wir glauben an Mode, die inspiriert, bewegt und unvergesslich macht. Jedes Stück in unserer Kollektion ist sorgfältig ausgewählt, um deinen individuellen Stil zu unterstreichen und deine Persönlichkeit zum Strahlen zu bringen.</p>
+		</div>
+		<div class="wrap">
+			<div class="content content--sticky content--card bg-1">
+				<img class="content__img content__img--small" src="/images/11.png" />
+				<h2 class="content__title"><i>Unsere</i> Qualität</h2>
+				<p class="content__text text-meta">Jedes Stück wird sorgfältig ausgewählt und auf höchste Qualität geprüft.</p>
+			</div>
+			<div class="content content--sticky content--card bg-2">
+				<img class="content__img content__img--small" src="/images/4.png" alt="Unser Design" />
+				<h2 class="content__title"><i>Unser</i> Design</h2>
+				<p class="content__text text-meta">Zeitlose Klassiker treffen auf aktuelle Trends für einen einzigartigen Stil.</p>
+			</div>
+			<div class="content content--sticky content--card bg-3">
+				<img class="content__img content__img--small" src="/images/9.png" />
+				<h2 class="content__title"><i>Unser</i> Team</h2>
+				<p class="content__text text-meta">Leidenschaftliche Stylisten mit einem Auge für perfekte Kombinationen.</p>
+			</div>
+			<div class="content content--sticky content--card bg-4">
+				<img class="content__img content__img--small" src="/images/8.png" />
+				<h2 class="content__title"><i>Unsere</i> Werte</h2>
+				<p class="content__text text-meta">Nachhaltigkeit und faire Produktion stehen im Zentrum unseres Handelns.</p>
+			</div>
+			<div class="content content--sticky content--card bg-5">
+				<img class="content__img content__img--small" src="/images/7.png" />
+				<h2 class="content__title"><i>Unsere</i> Kollektion</h2>
+				<p class="content__text text-meta">Sorgfältig kuratierte Pieces für jeden Anlass und jeden Stil.</p>
+			</div>
+			<div class="content content--sticky content--card bg-6">
+				<img class="content__img content__img--small" src="/images/10.png" />
+				<h2 class="content__title"><i>Unser</i> Service</h2>
+				<p class="content__text text-meta">Persönliche Beratung für Ihre perfekte Garderobe.</p>
+			</div>
+		</div>
+		<div class="content content--highlight content--outro">
+			<p class="text-large">Seit 2024 gestalten wir die Zukunft der Mode in Berlin. Mit Leidenschaft, Stil und dem Mut, anders zu sein.</p>
+		</div>
+		<div class="infinite-scroll-section">
+			<img class="rotating-final-image" src="/images/12.png" alt="Fashion House" />
+		</div>
+	</main>
+	<script src="/demos/sticky-sections/js/gsap.min.js"></script>
+	<script src="/demos/sticky-sections/js/ScrollTrigger.min.js"></script>
+	<script src="/demos/sticky-sections/js/lenis.min.js"></script>
+	<script src="/demos/sticky-sections/js/imagesloaded.pkgd.min.js"></script>
+	<script type="module">
+import { preloadImages } from '/demos/sticky-sections/js/utils.js';
+
+let lenis;
+const contentElements = [...document.querySelectorAll('.content--sticky')];
+
+const initSmoothScrolling = () => {
+	lenis = new Lenis({
+		lerp: 0.2,
+		smoothWheel: true
+	});
+
+	lenis.on('scroll', () => ScrollTrigger.update());
+
+	const scrollFn = (time) => {
+		lenis.raf(time);
+		requestAnimationFrame(scrollFn);
+	};
+	requestAnimationFrame(scrollFn);
+};
+
+
+const scroll = () => {
+    contentElements.forEach(el => {
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: el,
+                start: 'center center',
+                end: 'max',
+                scrub: true
+            }
+        })
+        .to(el, {
+            ease: 'none',
+            startAt: {filter: 'blur(0px)'},
+            filter: 'blur(3px)',
+            scrollTrigger: {
+                trigger: el,
+                start: 'center center',
+                end: '+=100%',
+                scrub: true
+            }
+        }, 0)
+        .to(el, {
+            ease: 'none',
+            scale: 0.4,
+            yPercent: -50
+        }, 0)
+    });
+};
+
+// Text Animation beim Viewport Enter
+const initTextAnimation = () => {
+	const introText = document.querySelector('.intro-text');
+	if (!introText) return;
+
+	const text = introText.textContent;
+	const words = text.split(' ');
+	introText.textContent = '';
+	introText.style.opacity = '1';
+
+	const allSpans = [];
+
+	words.forEach((word, wordIndex) => {
+		const wordSpan = document.createElement('span');
+		wordSpan.style.display = 'inline-block';
+		wordSpan.style.whiteSpace = 'nowrap';
+
+		word.split('').forEach(char => {
+			const span = document.createElement('span');
+			span.textContent = char;
+			span.style.opacity = '0';
+			span.style.display = 'inline-block';
+			wordSpan.appendChild(span);
+			allSpans.push(span);
+		});
+
+		introText.appendChild(wordSpan);
+
+		if (wordIndex < words.length - 1) {
+			const space = document.createTextNode(' ');
+			introText.appendChild(space);
+		}
+	});
+
+	gsap.timeline({
+		scrollTrigger: {
+			trigger: introText,
+			start: 'top 80%',
+			once: true
+		}
+	}).to(allSpans, {
+		opacity: 1,
+		duration: 0.03,
+		stagger: 0.03,
+		ease: 'power2.out'
+	});
+};
+
+// Infinite Scroll mit Rotation
+const initInfiniteScroll = () => {
+	const finalImage = document.querySelector('.rotating-final-image');
+	const scrollSection = document.querySelector('.infinite-scroll-section');
+
+	if (!finalImage || !scrollSection) return;
+
+	let rotation = 0;
+	let lastScrollY = window.scrollY;
+
+	window.addEventListener('scroll', () => {
+		const sectionTop = scrollSection.offsetTop;
+		const scrollY = window.scrollY;
+
+		// Rotation beim Scrollen in der infinite section
+		if (scrollY >= sectionTop - window.innerHeight) {
+			const scrollDelta = scrollY - lastScrollY;
+			rotation += scrollDelta * 0.3;
+			finalImage.style.transform = `rotate(${rotation}deg)`;
+		}
+
+		lastScrollY = scrollY;
+	});
+
+	// Touch für Mobile
+	let touchStartY = 0;
+	window.addEventListener('touchstart', (e) => {
+		touchStartY = e.touches[0].clientY;
+	}, { passive: true });
+
+	window.addEventListener('touchmove', (e) => {
+		const scrollY = window.scrollY;
+		const sectionTop = scrollSection.offsetTop;
+
+		if (scrollY >= sectionTop - window.innerHeight) {
+			const touchY = e.touches[0].clientY;
+			const touchDelta = touchStartY - touchY;
+			rotation += touchDelta * 0.1;
+			finalImage.style.transform = `rotate(${rotation}deg)`;
+			touchStartY = touchY;
+		}
+	}, { passive: true });
+};
+
+const init = () => {
+    initSmoothScrolling();
+    scroll();
+    initTextAnimation();
+    initInfiniteScroll();
+};
+
+preloadImages('.content__img').then(() => {
+    document.body.classList.remove('loading');
+    init();
+});
+	</script>
+</body>
+</html>

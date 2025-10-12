@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset="utf-8">
+
+		<title>Sheen</title>
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="GPGPU cloth simulation. WebGL - Three.js">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+		<meta name="theme-color" content="#020406"/>
+
+		<meta property="og:image" content="https://raw.githubusercontent.com/sciecode/sciecode.github.io/master/assets/images/sheen.jpg">
+		<meta property="og:site_name" content="ScieCode">
+		<meta property="og:type" content="object">
+		<meta property="og:title" content="Sheen">
+		<meta property="og:url" content="https://sciecode.github.io/sheen">
+		<meta property="og:description" content="GPGPU cloth simulation. WebGL - Three.js">
+
+		<link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
+
+	</head>
+
+	<body>
+
+		<!-- Leinwand Text Animation -->
+		<div class="canvas-text">
+			<h1 class="canvas-title">Touch & Feel</h1>
+			<p class="canvas-subtitle">Experience the magic of interactive fabric</p>
+		</div>
+
+		<!-- Color Switch Button -->
+		<div class="color-switcher">
+			<button class="color-btn" data-color="0x8b5cf6" style="background-color: #8b5cf6;" title="Purple"></button>
+			<button class="color-btn" data-color="0xff6b6b" style="background-color: #ff6b6b;" title="Coral"></button>
+			<button class="color-btn" data-color="0xffe66d" style="background-color: #ffe66d;" title="Gold"></button>
+			<button class="color-btn gradient-1" data-gradient="sunset" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffe66d 100%);" title="Sunset"></button>
+			<button class="color-btn gradient-2" data-gradient="ocean" style="background: linear-gradient(135deg, #4ecdc4 0%, #556ee6 100%);" title="Ocean"></button>
+			<button class="color-btn gradient-3" data-gradient="candy" style="background: linear-gradient(135deg, #f38181 0%, #a8e6cf 100%);" title="Candy"></button>
+		</div>
+
+		<script src="./src/main.js" type="module"></script>
+
+	</body>
+
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Liquid Distortion Effects</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<style>
+			* {
+				scroll-behavior: smooth;
+			}
+			body {
+				overflow-y: auto; /* Allow vertical scrolling */
+			}
+			.site-wrapper {
+				position: relative;
+			}
+			.content-wrapper {
+				height: 100vh;
+				position: sticky;
+				top: 0;
+				left: 0;
+				width: 100%;
+				z-index: 1;
+			}
+			.content {
+				height: 100%;
+			}
+			.hero-text {
+				position: absolute;
+				top: 35%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 100;
+				text-align: center;
+				color: white;
+				pointer-events: none;
+				width: 90%;
+				max-width: 1200px;
+			}
+			.hero-title {
+				font-family: 'Playfair Display', serif;
+				font-size: 8vw;
+				font-weight: 900;
+				margin: 0 0 1rem 0;
+				text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+				word-break: normal;
+				hyphens: none;
+				-webkit-hyphens: none;
+				-moz-hyphens: none;
+				-ms-hyphens: none;
+				line-height: 1.2;
+			}
+			.hero-slogan {
+				font-family: 'Lato', sans-serif;
+				font-size: 3.5vw;
+				font-weight: 400;
+				margin: 0;
+				text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+				word-break: normal;
+				hyphens: none;
+				-webkit-hyphens: none;
+				-moz-hyphens: none;
+				-ms-hyphens: none;
+			}
+
+			/* Header */
+			.demo-header {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 1000;
+				background: rgba(255, 255, 255, 0.1);
+				backdrop-filter: blur(10px);
+				-webkit-backdrop-filter: blur(10px);
+				padding: 1rem 1.5rem;
+				display: flex;
+				justify-content: flex-start;
+			}
+
+			.exit-button {
+				background: none;
+				border: none;
+				cursor: pointer;
+				padding: 0.5rem;
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+				width: 30px;
+				height: 30px;
+			}
+
+			.exit-button span {
+				display: block;
+				width: 100%;
+				height: 2px;
+				background: white;
+				transition: all 0.3s ease;
+			}
+
+			.exit-button:hover span {
+				background: rgba(255, 255, 255, 0.7);
+			}
+
+			/* Glassmorphismus Reiseziel-Karte */
+			.destination-info-card {
+				position: absolute;
+				bottom: 8%;
+				left: 50%;
+				transform: translateX(-50%);
+				z-index: 50;
+				background: rgba(255, 255, 255, 0.15);
+				backdrop-filter: blur(15px);
+				-webkit-backdrop-filter: blur(15px);
+				border: 1px solid rgba(255, 255, 255, 0.3);
+				border-radius: 20px;
+				padding: 1.5rem 2.5rem;
+				max-width: 700px;
+				width: 85%;
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+				pointer-events: none;
+				opacity: 0;
+				visibility: hidden;
+			}
+
+			.destination-name {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.6rem;
+				font-weight: 900;
+				color: white;
+				margin: 0 0 0.4rem 0;
+				text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+			}
+
+			.star-rating {
+				display: flex;
+				align-items: center;
+				gap: 0.3rem;
+				margin-bottom: 0.8rem;
+			}
+
+			.star {
+				color: #FFD700;
+				font-size: 1rem;
+				text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+			}
+
+			.destination-description {
+				font-family: 'Lato', sans-serif;
+				font-size: 0.9rem;
+				line-height: 1.5;
+				color: white;
+				margin: 0;
+				text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+			}
+
+			.why-label {
+				font-weight: 700;
+				color: rgba(255, 255, 255, 0.95);
+				margin-bottom: 0.4rem;
+				font-size: 0.8rem;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+			}
+
+
+			/* Tablet und kleine Desktop-Fenster */
+			@media (max-width: 1024px) {
+				.hero-text {
+					top: 28%;
+					width: 88%;
+				}
+
+				.hero-title {
+					font-size: 12vw;
+					line-height: 1.2;
+					margin-bottom: 1rem;
+				}
+
+				.hero-slogan {
+					font-size: 6vw;
+					line-height: 1.4;
+				}
+
+				.destination-info-card {
+					bottom: 10%;
+					width: 88%;
+					padding: 1.3rem 2rem;
+				}
+
+				.destination-name {
+					font-size: 1.4rem;
+				}
+
+				.destination-description {
+					font-size: 0.85rem;
+				}
+			}
+
+			/* Mobile Responsiveness */
+			@media (max-width: 768px) {
+				.hero-text {
+					top: 28%;
+					width: 90%;
+					padding: 0 1rem;
+					max-width: 100%;
+				}
+
+				.hero-title {
+					font-size: 13vw;
+					line-height: 1.2;
+					margin-bottom: 1.5rem;
+					word-break: normal;
+					hyphens: none;
+					-webkit-hyphens: none;
+				}
+
+				.hero-slogan {
+					font-size: 5.5vw;
+					line-height: 1.4;
+					word-break: normal;
+					hyphens: none;
+					-webkit-hyphens: none;
+				}
+
+				.destination-info-card {
+					padding: 1.5rem;
+					bottom: 12%;
+					width: 85%;
+					max-width: none;
+				}
+
+				.destination-name {
+					font-size: 1.3rem;
+					margin-bottom: 0.5rem;
+				}
+
+				.star-rating {
+					margin-bottom: 0.8rem;
+				}
+
+				.star {
+					font-size: 1rem;
+				}
+
+				.why-label {
+					font-size: 0.75rem;
+					margin-bottom: 0.3rem;
+				}
+
+				.destination-description {
+					font-size: 0.85rem;
+					line-height: 1.5;
+				}
+			}
+
+			/* Extra small devices */
+			@media (max-width: 480px) {
+				.hero-text {
+					width: 90%;
+					padding: 0 1rem;
+					top: 26%;
+				}
+
+				.hero-title {
+					font-size: 14vw;
+					line-height: 1.2;
+					margin-bottom: 1.5rem;
+				}
+
+				.hero-slogan {
+					font-size: 6vw;
+					line-height: 1.4;
+				}
+
+				.destination-info-card {
+					padding: 1.2rem;
+					bottom: 15%;
+				}
+
+				.destination-name {
+					font-size: 1.1rem;
+				}
+
+				.destination-description {
+					font-size: 0.8rem;
+				}
+			}
+
+			.destinations {
+				padding: 4rem 2rem;
+				background-color: #f4f4f4;
+				text-align: center;
+				position: relative;
+				z-index: 2;
+			}
+
+			.section-title {
+				font-family: 'Playfair Display', serif;
+				font-size: 3rem;
+				color: #333;
+				margin-bottom: 3rem;
+			}
+
+			.destinations-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 2rem;
+				max-width: 1200px;
+				margin: 0 auto;
+			}
+
+			.destination-card {
+				position: relative; /* Needed for absolute positioning of children */
+				border-radius: 10px;
+				overflow: hidden;
+				box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+				min-height: 400px; /* Give the card a fixed height */
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end; /* Push content to the bottom */
+				color: white; /* Make text white */
+			}
+
+			.destination-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+				z-index: 2;
+			}
+
+			.destination-card:hover {
+				transform: translateY(-10px);
+				box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+			}
+
+			.destination-image {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				z-index: 1;
+			}
+
+			.card-content {
+				padding: 1.5rem;
+				position: relative;
+				z-index: 3;
+			}
+
+			.card-content h3 {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.5rem;
+				color: white;
+				margin-top: 0;
+			}
+
+			.card-button {
+				display: inline-block;
+				margin-top: 1rem;
+				padding: 0.75rem 1.5rem;
+				background-color: white;
+				color: #333;
+				text-decoration: none;
+				border-radius: 5px;
+				transition: background-color 0.3s ease, color 0.3s ease;
+				font-weight: bold;
+			}
+
+			.card-button:hover {
+				background-color: #eee;
+			}
+
+			.custom-footer {
+				background-color: #222;
+				color: #aaa;
+				padding: 2rem 0;
+				font-family: 'Lato', sans-serif;
+			}
+
+			.footer-content {
+				max-width: 800px; /* Narrower container */
+				margin: 0 auto;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0 2rem;
+			}
+
+			.footer-links a {
+				color: #aaa;
+				text-decoration: none;
+				margin-left: 1.5rem;
+				transition: color 0.3s ease;
+			}
+
+			.footer-links a:hover {
+				color: white;
+			}
+		</style>
+		<script>document.documentElement.className = 'js';</script>
+	</head>
+	<body class="demo-1 loading">
+		<!-- Header mit Exit Button -->
+		<header class="demo-header">
+			<button class="exit-button" onclick="window.history.back()" aria-label="Exit Demo">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</header>
+
+		<main class="site-wrapper">
+			<div class="content-wrapper">
+				<div class="content">
+					<div class="hero-text">
+						<h1 class="hero-title"></h1>
+						<p class="hero-slogan"></p>
+					</div>
+
+					<!-- Glassmorphismus Reiseziel-Info Karte -->
+					<div class="destination-info-card">
+						<h3 class="destination-name"></h3>
+						<div class="star-rating">
+							<span class="star">★</span>
+							<span class="star">★</span>
+							<span class="star">★</span>
+							<span class="star">★</span>
+							<span class="star">★</span>
+						</div>
+						<p class="why-label">Warum dieses Reiseziel?</p>
+						<p class="destination-description"></p>
+					</div>
+
+					<div class="slide-wrapper">
+						<div class="slide-item">
+							<img src="img/1.jpg" class="slide-item__image">
+						</div>
+						<div class="slide-item">
+							<img src="img/2.jpg" class="slide-item__image">
+						</div>
+						<div class="slide-item">
+							<img src="img/3.jpg" class="slide-item__image">
+						</div>
+						<div class="slide-item">
+							<img src="img/4.jpg" class="slide-item__image">
+						</div>
+						<div class="slide-item">
+							<img src="img/5.jpg" class="slide-item__image">
+						</div>
+					</div>
+					<button class="scene-nav scene-nav--prev" data-nav="previous"><svg class="icon icon--arrow-nav-prev" viewBox="208.3 352 4.2 6.4"><polygon points="212.1,357.3 211.5,358 208.7,355.1 211.5,352.3 212.1,353 209.9,355.1"></polygon></svg></button>
+					<button class="scene-nav scene-nav--next" data-nav="next"><svg class="icon icon--arrow-nav-next" viewBox="208.3 352 4.2 6.4"><polygon points="212.1,357.3 211.5,358 208.7,355.1 211.5,352.3 212.1,353 209.9,355.1"></polygon></svg></button>
+				</div>
+			</div>
+			<section class="destinations">
+			<h2 class="section-title">Unsere beliebtesten Reiseziele</h2>
+			<div class="destinations-grid">
+				<div class="destination-card">
+					<img src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Malediven" class="destination-image">
+					<div class="card-content">
+						<h3>Malediven Luxus-Retreat</h3>
+						<p>Entspannen Sie in einer Überwasservilla mit privatem Pool und endlosem Meerblick.</p>
+						<a href="#" class="card-button">Details ansehen</a>
+					</div>
+				</div>
+				<div class="destination-card">
+					<img src="https://images.unsplash.com/photo-1528543606781-2f6e6857f318?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Costa Rica" class="destination-image">
+					<div class="card-content">
+						<h3>Abenteuer in Costa Rica</h3>
+						<p>Erkunden Sie den Dschungel, entdecken Sie Vulkane und surfen Sie an unberührten Stränden.</p>
+						<a href="#" class="card-button">Details ansehen</a>
+					</div>
+				</div>
+				<div class="destination-card">
+					<img src="https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Japan" class="destination-image">
+					<div class="card-content">
+						<h3>Kulturreise durch Japan</h3>
+						<p>Erleben Sie die faszinierende Mischung aus alten Traditionen und futuristischer Technologie.</p>
+						<a href="#" class="card-button">Details ansehen</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<footer class="custom-footer">
+			<div class="footer-content">
+				<p>&copy; 2025 Traumreisen GmbH. Alle Rechte vorbehalten.</p>
+				<div class="footer-links">
+					<a href="#">Impressum</a>
+					<a href="#">Datenschutz</a>
+					<a href="#">Kontakt</a>
+				</div>
+			</div>
+		</footer>
+		</main>
+		<script src="js/demo.js"></script>
+		<script src="js/pixi.min.js"></script>
+		<script src="js/TweenMax.min.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/imagesloaded.pkgd.min.js"></script>
+		<script>
+			imagesLoaded(document.body, () => document.body.classList.remove('loading'));
+
+			var spriteImages 	= document.querySelectorAll( '.slide-item__image' );
+			var spriteImagesSrc = [];
+
+			for ( var i = 0; i < spriteImages.length; i++ ) {
+				var img = spriteImages[i];
+				spriteImagesSrc.push( img.getAttribute('src' ) );
+			}
+
+			const slideTexts = [
+				{
+					title: 'Traumziele\nEntdecken',
+					slogan: 'Ihr Abenteuer beginnt hier.',
+					destination: 'Bali, Indonesien',
+					description: 'Bali verzaubert mit seiner perfekten Mischung aus paradiesischen Stränden, spirituellen Tempeln und üppigen Reisterrassen. Das tropische Klima, die herzliche Gastfreundschaft und die exotische Kultur machen die Insel zum idealen Rückzugsort für Erholungssuchende und Abenteurer gleichermaßen.'
+				},
+				{
+					title: 'Unberührte\nNatur',
+					slogan: 'Erleben Sie die Wildnis hautnah.',
+					destination: 'Seychellen',
+					description: 'Die Seychellen bieten unberührte weiße Sandstrände, kristallklares türkisfarbenes Wasser und einzigartige Granitfelsen. Als eines der letzten Paradiese der Erde begeistern die Inseln mit ihrer außergewöhnlichen Artenvielfalt, luxuriösen Abgeschiedenheit und einem ganzjährig angenehmen tropischen Klima.'
+				},
+				{
+					title: 'Pulsierende\nMetropolen',
+					slogan: 'Tauchen Sie ein in das Stadtleben.',
+					destination: 'Dubai, VAE',
+					description: 'Dubai vereint futuristische Architektur mit orientalischem Charme und bietet weltklasse Shopping, innovative Gastronomie und atemberaubende Attraktionen. Die Stadt ist ein Symbol für Luxus und Innovation, wo traditionelle Souks neben glitzernden Wolkenkratzern existieren und jeder Besuch zu einem unvergesslichen Erlebnis wird.'
+				},
+				{
+					title: 'Endlose\nSandstrände',
+					slogan: 'Finden Sie Ihre innere Ruhe.',
+					destination: 'Malediven',
+					description: 'Die Malediven sind das ultimative tropische Paradies mit puderzuckerweißen Stränden, schillernden Korallengärten und exklusiven Overwater-Villen. Die abgeschiedene Lage inmitten des Indischen Ozeans garantiert absolute Privatsphäre, während das türkisblaue Wasser und die artenreiche Unterwasserwelt Taucher und Schnorchler gleichermaßen faszinieren.'
+				},
+				{
+					title: 'Historische\nWunder',
+					slogan: 'Reisen Sie durch die Zeit.',
+					destination: 'Santorin, Griechenland',
+					description: 'Santorin besticht durch seine ikonischen weißen Häuser mit blauen Kuppeln, die dramatischen Klippen und spektakuläre Sonnenuntergänge über der Caldera. Die vulkanische Insel verbindet antike Geschichte mit mediterranem Flair, erstklassigen Weinen und einer romantischen Atmosphäre, die Besucher aus aller Welt verzaubert.'
+				}
+			];
+
+			const titleElement = document.querySelector('.hero-title');
+			const sloganElement = document.querySelector('.hero-slogan');
+			const destinationNameElement = document.querySelector('.destination-name');
+			const destinationDescriptionElement = document.querySelector('.destination-description');
+
+			const animateText = (element, text, stagger, direction = 'in') => {
+				element.innerHTML = ''; // Clear previous text
+
+				text.split('').forEach(char => {
+					if (char === '\n') {
+						element.appendChild(document.createElement('br'));
+					} else {
+						const span = document.createElement('span');
+						span.textContent = char === ' ' ? '\u00A0' : char; // Use non-breaking space
+						element.appendChild(span);
+					}
+				});
+
+				const fromVars = {
+					opacity: direction === 'in' ? 0 : 1,
+					filter: direction === 'in' ? 'blur(10px)' : 'blur(0px)',
+					y: direction === 'in' ? 30 : 0,
+				};
+				const toVars = {
+					opacity: direction === 'in' ? 1 : 0,
+					filter: direction === 'in' ? 'blur(0px)' : 'blur(10px)',
+					y: direction === 'in' ? 0 : -30,
+					ease: Power2.easeOut,
+				};
+
+				return TweenMax.staggerFromTo(
+					Array.from(element.children).filter(el => el.tagName !== 'BR'),
+					0.5, // Faster animation
+					fromVars,
+					toVars,
+					stagger
+				);
+			};
+
+			const updateText = (index) => {
+				const newText = slideTexts[index];
+				const heroTextElement = document.querySelector('.hero-text');
+
+				// Animate out
+				animateText(titleElement, titleElement.textContent, 0.02, 'out');
+				animateText(sloganElement, sloganElement.textContent, 0.01, 'out');
+
+				// Center hero text only on first slide (index 0)
+				if (index === 0) {
+					heroTextElement.style.top = '50%';
+				} else {
+					// Reset to original position for other slides
+					heroTextElement.style.top = '';
+				}
+
+				// Show destination card only from index 1 onwards (second slide)
+				if (index >= 1) {
+					// Fade out destination card
+					TweenMax.to('.destination-info-card', 0.4, {
+						opacity: 0,
+						y: 20,
+						onComplete: function() {
+							// Update text content
+							destinationNameElement.textContent = newText.destination;
+							destinationDescriptionElement.textContent = newText.description;
+
+							// Make visible and fade in destination card
+							document.querySelector('.destination-info-card').style.visibility = 'visible';
+							TweenMax.to('.destination-info-card', 0.6, {
+								opacity: 1,
+								y: 0,
+								ease: Power2.easeOut
+							});
+						}
+					});
+				} else {
+					// Hide card on first slide
+					TweenMax.to('.destination-info-card', 0.4, {
+						opacity: 0,
+						onComplete: function() {
+							document.querySelector('.destination-info-card').style.visibility = 'hidden';
+						}
+					});
+				}
+
+				// Animate in immediately
+				animateText(titleElement, newText.title, 0.05, 'in');
+				animateText(sloganElement, newText.slogan, 0.03, 'in');
+			};
+
+			var initCanvasSlideshow = new CanvasSlideshow({
+				sprites: spriteImagesSrc,
+				displacementImage: 'img/dmaps/2048x2048/clouds.jpg',
+				autoPlay: true,
+				autoPlaySpeed: [10, 3],
+				displaceScale: [200, 70],
+				onSlideChange: (index) => {
+					updateText(index);
+				}
+			});
+
+			// Initial text animation
+			updateText(0);
+		</script>
+	</body>
+</html>

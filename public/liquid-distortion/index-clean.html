@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Liquid Distortion Effects</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<script>document.documentElement.className = 'js';</script>
+	</head>
+	<body class="demo-1 loading">
+		<div class="animated-texts">
+			<h2 class="headline">Erleben Sie Interaktion Neu</h2>
+			<p class="slogan">Dynamische Web-Effekte, die fesseln.</p>
+		</div>
+		<main class="site-wrapper">
+			<div class="content">
+				<div class="slide-wrapper">
+					<div class="slide-item">
+						<img src="img/1.jpg" class="slide-item__image">
+					</div>
+					<div class="slide-item">
+						<img src="img/2.jpg" class="slide-item__image">
+					</div>
+					<div class="slide-item">
+						<img src="img/3.jpg" class="slide-item__image">
+					</div>
+					<div class="slide-item">
+						<img src="img/4.jpg" class="slide-item__image">
+					</div>
+					<div class="slide-item">
+						<img src="img/5.jpg" class="slide-item__image">
+					</div>
+				</div>
+				<button class="scene-nav scene-nav--prev" data-nav="previous"><svg class="icon icon--arrow-nav-prev" viewBox="208.3 352 4.2 6.4"><polygon points="212.1,357.3 211.5,358 208.7,355.1 211.5,352.3 212.1,353 209.9,355.1"></polygon></svg></button>
+				<button class="scene-nav scene-nav--next" data-nav="next"><svg class="icon icon--arrow-nav-next" viewBox="208.3 352 4.2 6.4"><polygon points="212.1,357.3 211.5,358 208.7,355.1 211.5,352.3 212.1,353 209.9,355.1"></polygon></svg></button>
+			</div>
+		</main>
+		<script src="js/demo.js"></script>
+		<script src="js/pixi.min.js"></script>
+		<script src="js/TweenMax.min.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/imagesloaded.pkgd.min.js"></script>
+		<script>
+			imagesLoaded(document.body, () => {
+				document.body.classList.remove('loading');
+				const headline = document.querySelector('.headline');
+				const slogan = document.querySelector('.slogan');
+				TweenMax.to(headline, 1, {opacity: 1, y: -20, ease: Power1.easeInOut});
+				TweenMax.to(slogan, 1, {opacity: 1, y: -10, delay: 0.5, ease: Power1.easeInOut});
+			});
+
+			var spriteImages 	= document.querySelectorAll( '.slide-item__image' );
+			var spriteImagesSrc = [];
+
+			for ( var i = 0; i < spriteImages.length; i++ ) {
+				var img = spriteImages[i];
+				spriteImagesSrc.push( img.getAttribute('src' ) );
+			}
+
+			var initCanvasSlideshow = new CanvasSlideshow({
+				sprites: spriteImagesSrc,
+				displacementImage: 'img/dmaps/2048x2048/clouds.jpg',
+				autoPlay: true,
+				autoPlaySpeed: [10, 3],
+				displaceScale: [200, 70]
+			});
+		</script>
+	</body>
+</html>

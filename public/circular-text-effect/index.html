@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Circular Text Effect</title>
+	<link rel="shortcut icon" href="favicon.26242483.ico">
+	<link rel="stylesheet" href="https://use.typekit.net/kxo3pgz.css">
+	<link rel="stylesheet" type="text/css" href="base.98fd6c19.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+	<script>document.documentElement.className = "js";
+
+var supportsCssVars = function supportsCssVars() {
+  var e,
+      t = document.createElement("style");
+  return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e;
+};
+
+supportsCssVars() || alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
+	<style>
+		.frame,
+		.frame__title,
+		.frame__links,
+		.frame__demos {
+			display: none !important;
+			visibility: hidden !important;
+			opacity: 0 !important;
+		}
+	</style>
+</head>
+
+<body class="demo-1 loading">
+	<main>
+		<svg class="circles" width="100%" height="100%" viewBox="0 0 1400 1400">
+			<defs>
+				<path id="circle-1" d="M250,700.5A450.5,450.5 0 1 11151,700.5A450.5,450.5 0 1 1250,700.5"></path>
+				<path id="circle-2" d="M382,700.5A318.5,318.5 0 1 11019,700.5A318.5,318.5 0 1 1382,700.5"></path>
+				<path id="circle-3" d="M487,700.5A213.5,213.5 0 1 1914,700.5A213.5,213.5 0 1 1487,700.5"></path>
+				<path id="circle-4" d="M567.5,700.5A133,133 0 1 1833.5,700.5A133,133 0 1 1567.5,700.5"></path>
+			</defs>
+			<text class="circles__text circles__text--1">
+				<textPath class="circles__text-path" xlink:href="#circle-1" aria-label="" textLength="2830">Design   •   Experience   •   Animation&nbsp;</textPath>
+			</text>
+			<text class="circles__text circles__text--2">
+				<textPath class="circles__text-path" xlink:href="#circle-2" aria-label="" textLength="2001">Interactive   •   Motion   •   Creative&nbsp;</textPath>
+			</text>
+			<text class="circles__text circles__text--3">
+				<textPath class="circles__text-path" xlink:href="#circle-3" aria-label="" textLength="1341">Brand   •   Visual   •   Code&nbsp;</textPath>
+			</text>
+			<text class="circles__text circles__text--4">
+				<textPath class="circles__text-path" xlink:href="#circle-4" aria-label="" textLength="836">Web   •   Modern   •   Digital&nbsp;</textPath>
+			</text>
+		</svg>
+		<div class="frame">
+			<h1 class="frame__title" style="display: none;">Circular Text Effect</h1>
+		</div>
+		<div class="content">
+			<p>Klein Digital Solutions – wir entwerfen Marken, Experiences und Automationen, die sich anfühlen wie Magie.</p>
+		</div>
+		<button class="enter">
+			<div class="enter__bg"></div>
+			<span class="enter__text">Enter</span>
+		</button>
+	</main>
+	<script src="demo1.151408fb.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const enterButton = document.querySelector('.enter');
+			if (!enterButton) {
+				return;
+			}
+
+			const notifyParent = () => {
+				window.parent?.postMessage('intro-complete', '*');
+			};
+
+			enterButton.addEventListener('click', notifyParent);
+			enterButton.addEventListener('keydown', function (event) {
+				if (event.key === 'Enter' || event.key === ' ') {
+					event.preventDefault();
+					notifyParent();
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

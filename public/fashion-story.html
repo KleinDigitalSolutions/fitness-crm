@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Scroll Demo</title>
+    <style>
+:root {
+  --dark-color-h: 334.29;
+  --dark-color-s: 32.03%;
+  --dark-color-l: 30%;
+  --light-color-h: 19.2;
+  --light-color-s: 30.86%;
+  --light-color-l: 84.12%;
+  --dark-color: hsl(var(--dark-color-h), var(--dark-color-s), var(--dark-color-l));
+  --dark-color-lighter: hsl(var(--dark-color-h), var(--dark-color-s), calc(var(--dark-color-l) + 10%));
+  --dark-color-darker: hsl(var(--dark-color-h), var(--dark-color-s), calc(var(--dark-color-l) - 10%));
+  --dark-color-translucent: hsla(var(--dark-color-h), var(--dark-color-s), var(--dark-color-l), 0.75);
+  --dark-color-darker-translucent: hsla(var(--dark-color-h), var(--dark-color-s), calc(var(--dark-color-l) - 10%), 0.75);
+  --light-color: hsl(var(--light-color-h), var(--light-color-s), var(--light-color-l));
+  --light-color-lighter: hsl(var(--light-color-h), var(--light-color-s), calc(var(--light-color-l) + 10%));
+  --light-color-darker: hsl(var(--light-color-h), var(--light-color-s), calc(var(--light-color-l) - 10%));
+  --light-color-translucent: hsla(var(--light-color-h), var(--light-color-s), var(--light-color-l), 0.75);
+  --color-bg: var(--dark-color);
+  --color-text: var(--light-color);
+  --color-muted: color-mix(in oklab, var(--color-text) 50%, var(--color-bg) 50%);
+  --color-accent: color-mix(in oklab, var(--color-text) 80%, var(--color-bg) 20%);
+  --color-border: color-mix(in oklab, var(--color-text) 30%, var(--color-bg) 70%);
+  --resources-bg-color: var(--dark-color-darker-translucent);
+  --resources-active-color: color-mix(in srgb, var(--light-color) 75%, transparent);
+  --resources-color: var(--color-text);
+  --ts-h6: clamp(12px, 1.0753vw + 8.9892px, 20px);
+  --ts-h5: clamp(14.4px, 1.2903vw + 10.7871px, 24px);
+  --ts-h4: clamp(17.28px, 1.5484vw + 12.9445px, 28.8px);
+  --ts-h3: clamp(20.736px, 1.8581vw + 15.5334px, 34.56px);
+  --ts-h2: clamp(24.8832px, 2.2297vw + 18.6401px, 41.472px);
+  --ts-h1: clamp(29.8598px, 2.6756vw + 22.3681px, 49.7664px);
+}
+
+*, ::after, ::before {
+  border-style: solid;
+  border-width: 0;
+  box-sizing: border-box;
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html {
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.viewport-wrapper {
+  height: auto;
+  overflow: visible;
+  position: relative;
+}
+
+.content-scroll {
+  display: block;
+  width: 100%;
+}
+
+body:not(.normalize-scroll) .viewport-wrapper {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+
+body:not(.normalize-scroll) .content-scroll {
+  overflow: visible;
+}
+
+body:not(.normalize-scroll) .content-scroll .sv-wrapper {
+  perspective: 2000px;
+}
+
+body:not(.normalize-scroll) .content-scroll .pin-spacer {
+  transform-style: preserve-3d;
+}
+
+h2 {
+  font-size: var(--ts-h2);
+}
+
+h2, h3 {
+  color: var(--color-accent);
+  font-weight: 400;
+  letter-spacing: 0.025em;
+  line-height: 1.3;
+  margin-bottom: 0.65rem;
+  margin-top: 0;
+}
+
+h3 {
+  font-size: var(--ts-h3);
+}
+
+main, pre code {
+  display: block;
+}
+
+main {
+  margin: 0;
+  position: relative;
+}
+
+section {
+  display: block;
+  position: relative;
+}
+
+section:is(.intro, .indicator) {
+  margin: 4rem auto;
+  max-width: 56.25rem;
+  width: calc(100% - 2rem);
+}
+
+section.indicator {
+  text-align: center;
+}
+
+section.indicator h3 {
+  font-size: var(--ts-h5);
+  font-weight: 400;
+  margin: 0;
+}
+
+section:has(.sv-wrapper) {
+  background: var(--dark-color-darker);
+  padding: 4rem 0;
+}
+
+.sv-wrapper {
+  display: block;
+  margin-inline: auto;
+  max-width: 64rem;
+  position: relative;
+  width: calc(100% - 2rem);
+}
+
+.sv-pin-container {
+  aspect-ratio: 16/9;
+  border-radius: 1.5vh;
+  display: grid;
+  max-height: 100lvh;
+  overflow: hidden;
+}
+
+.sv-pin-container, .sv-video {
+  position: relative;
+  width: 100%;
+}
+
+.sv-video {
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.sv-cue, .sv-video {
+  display: block;
+  grid-area: 1/-1;
+  height: 100%;
+}
+
+.sv-cue, .sv-cue-content {
+  position: relative;
+  width: 100%;
+}
+
+.sv-cue-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  opacity: 0;
+  padding: 1rem;
+  pointer-events: none;
+  text-align: center;
+  user-select: none;
+}
+
+.sv-cue-content h2 {
+  margin-bottom: 0.25em;
+}
+
+.sv-cue-content p {
+  margin-top: -0.5em;
+}
+
+.sv-preloader {
+  background: #000;
+  grid-area: 1/-1;
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sv-overlay-track, .sv-preloader {
+  display: block;
+  pointer-events: none;
+  position: relative;
+  user-select: none;
+}
+
+.sv-overlay-track {
+  height: var(--track-height, 100lvh);
+  margin-top: var(--track-offset-y, -100lvh);
+  width: 100%;
+}
+
+.spacer {
+  display: block;
+  height: 100lvh;
+  position: relative;
+}
+
+@media (max-width: 51.29875em) {
+  .sv-pin-container {
+    aspect-ratio: 4/3;
+    border-radius: 2vh;
+  }
+}
+
+@media (max-width: 36.04875em) {
+  .sv-pin-container {
+    aspect-ratio: 1/1;
+  }
+}
+    </style>
+</head>
+<body>
+<div class="viewport-wrapper">
+  <div class="content-scroll">
+    <main class="main-content">
+      <section class="intro">
+        <h2>Fashion House Video Story</h2>
+        <p>Scroll nach unten um die Story zu erleben</p>
+      </section>
+
+      <section class="indicator">
+        <h3>Scroll Down<br>↓</h3>
+      </section>
+
+      <section>
+        <div id="video_01" class="sv-wrapper" data-duration="7.007">
+          <div class="sv-pin-container">
+            <video class="sv-video" tabindex="-1" width="1920" height="1080" alt="" preload="none" webkit-playsinline playsinline muted crossorigin src="https://www.lessrain.com/dev/videos/forest/forest.mp4" poster="https://www.lessrain.com/dev/videos/forest/forest_poster.webp"></video>
+
+            <div class="sv-cue" data-cue-start="0.5" data-cue-end="2.4">
+              <div class="sv-cue-content">
+                <h2>Zeitlose Eleganz</h2>
+                <p>Mode, die Geschichten erzählt</p>
+              </div>
+            </div>
+
+            <div class="sv-cue" data-cue-start="2.8" data-cue-end="4.7">
+              <div class="sv-cue-content">
+                <h2>Stilvolle Vielfalt</h2>
+                <p>Für jeden Anlass die perfekte Wahl</p>
+              </div>
+            </div>
+
+            <div class="sv-cue" data-cue-start="5.1" data-cue-end="7.0">
+              <div class="sv-cue-content">
+                <h2>Fashion House</h2>
+                <p>Dein Style. Deine Story.</p>
+              </div>
+            </div>
+
+            <div class="sv-preloader"></div>
+          </div>
+          <div class="sv-overlay-track"></div>
+        </div>
+      </section>
+
+      <section class="indicator">
+        <h3>↑<br>Scroll Up</h3>
+      </section>
+
+      <section>
+        <div class="spacer"></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://assets.codepen.io/16327/ScrollSmoother.min.js"></script>
+<script>
+// Utils
+const utils = {
+    device: {
+        isTouch: () => 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    },
+    dom: {
+        resolveElement: (selector) => typeof selector === 'string' ? document.querySelector(selector) : selector
+    },
+    css: {
+        getLVH: () => window.innerHeight || document.documentElement.clientHeight
+    },
+    system: {
+        nextTick: (callback, context = null, delay = 0) => setTimeout(() => callback.call(context), delay),
+        clearInterval: (handle) => clearTimeout(handle)
+    }
+};
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+ScrollTrigger.config({
+    limitCallbacks: true,
+    ignoreMobileResize: true,
+    autoRefreshEvents: 'DOMContentLoaded,load',
+});
+
+const scroller = (() => {
+    if (typeof gsap === 'undefined' || typeof ScrollSmoother === 'undefined' || utils.device.isTouch()) {
+        document.body.classList.add('normalize-scroll');
+        return null;
+    }
+
+    return {
+        initialize: (contentSelector = '.content-scroll', wrapperSelector = '.viewport-wrapper') =>
+            ScrollSmoother.create({
+                content: contentSelector,
+                wrapper: wrapperSelector,
+                smooth: 2,
+                effects: false,
+                normalizeScroll: true,
+                preventDefault: true,
+            }),
+    };
+})();
+
+const createVideoScrub = () => {
+    let DOM = {
+        el: null,
+        pin: null,
+        trigger: null,
+        overlayTrack: null,
+        video: null,
+        loading: null,
+    };
+
+    let scrollTrigger = null;
+    let observer = null;
+    let isVisible = false;
+    let isVideoInitialized = false;
+    let videoDuration = 1;
+    let lastOverlayHeight = null;
+    let cueElements = [];
+    let lastProgress = 0;
+    let scrollDirection = 'down';
+
+    const options = {
+        selector: null,
+        trigger: null,
+        startOffset: null,
+        duration: null,
+        scrollFactor: 1,
+    };
+
+    const initialize = (opts = {}) => {
+        reset();
+        Object.assign(options, opts);
+
+        const el = utils.dom.resolveElement(options.selector);
+        if (!el) {
+            console.warn('[createVideoScrub] Invalid or missing selector.');
+            return;
+        }
+
+        DOM.el = el;
+        DOM.pin = el.querySelector('.sv-pin-container');
+        DOM.trigger = el.querySelector(options.trigger) || DOM.pin;
+        DOM.video = el.querySelector('.sv-video');
+        DOM.overlayTrack = el.querySelector('.sv-overlay-track');
+        DOM.preloader = el.querySelector('.sv-preloader');
+
+        if (!DOM.pin || !DOM.video) {
+            console.warn('[createVideoScrub] Missing .sv-pin-container or <video>.');
+            return;
+        }
+
+        const durationFromOptions = parseFloat(options.duration);
+        const durationFromAttr = parseFloat(DOM.el.getAttribute('data-duration'));
+
+        if (Number.isFinite(durationFromOptions) && durationFromOptions > 0) {
+            videoDuration = durationFromOptions;
+        } else if (Number.isFinite(durationFromAttr) && durationFromAttr > 0) {
+            videoDuration = durationFromAttr;
+        } else {
+            console.warn('[createVideoScrub] No valid duration found; using default of 1s.');
+        }
+
+        observeVisibility(DOM.el);
+        setupCues();
+        setupScrollTrigger();
+    };
+
+    const reset = () => {
+        observer?.disconnect();
+        scrollTrigger?.kill();
+
+        DOM = {
+            el: null,
+            pin: null,
+            trigger: null,
+            overlayTrack: null,
+            video: null,
+            loading: null,
+        };
+
+        scrollTrigger = null;
+        observer = null;
+        isVisible = false;
+        isVideoInitialized = false;
+        lastOverlayHeight = null;
+    };
+
+    const observeVisibility = (target) => {
+        let hasTriggered = false;
+        let debounceHandle = null;
+
+        observer = new IntersectionObserver(([entry]) => {
+            if (debounceHandle) {
+                utils.system.clearInterval(debounceHandle);
+            }
+
+            debounceHandle = utils.system.nextTick(() => {
+                isVisible = entry?.isIntersecting === true;
+
+                if (isVisible && !hasTriggered) {
+                    hasTriggered = true;
+
+                    if (DOM.video.preload !== 'metadata') {
+                        DOM.video.preload = 'metadata';
+                        DOM.video.load();
+                    }
+
+                    setupVideo();
+                }
+
+                if (hasTriggered) {
+                    isVisible ? unlockVideo() : lockVideo();
+                }
+            });
+        }, {
+            threshold: 0.01,
+            rootMargin: '0px 0px -0.01% 0px',
+        });
+
+        observer.observe(target);
+    };
+
+    const unlockVideo = () => {
+        const video = DOM.video;
+        if (!video || typeof video.play !== 'function') return;
+
+        const promise = video.play();
+        if (promise?.then) {
+            promise.then(() => video.pause()).catch(() => {});
+        }
+    };
+
+    const lockVideo = () => {
+        const video = DOM.video;
+        if (!video || video.paused) return;
+        video.pause();
+    };
+
+    const setupVideo = () => {
+        if (isVideoInitialized) return;
+
+        DOM.el.classList.add('video-loading');
+
+        const finalize = () => {
+            isVideoInitialized = true;
+            DOM.video.pause();
+            updateOverlayTrack();
+            DOM.el.classList.remove('video-loading');
+            DOM.el.classList.add('video-ready');
+
+            if (DOM.preloader) {
+                DOM.preloader.style.opacity = '0';
+
+                utils.system.nextTick(() => {
+                    if (DOM.preloader?.parentNode) {
+                        DOM.preloader.parentNode.removeChild(DOM.preloader);
+                        DOM.preloader = null;
+                    }
+                }, null, 350);
+            }
+        };
+
+        const tryFinalize = () => {
+            if (DOM.video.readyState >= 2) {
+                finalize();
+                DOM.video.removeEventListener('loadeddata', tryFinalize);
+            }
+        };
+
+        const waitForReady = () => {
+            if (isVideoInitialized) return;
+            if (DOM.video.readyState >= 2) {
+                finalize();
+            } else {
+                requestAnimationFrame(waitForReady);
+            }
+        };
+
+        DOM.video.addEventListener('loadeddata', tryFinalize, { once: true });
+        requestAnimationFrame(waitForReady);
+    };
+
+    const setupScrollTrigger = () => {
+        if (scrollTrigger || !DOM.overlayTrack || !DOM.pin) return;
+
+        const getLVH = utils.css.getLVH;
+
+        scrollTrigger = ScrollTrigger.create({
+            trigger: DOM.trigger,
+            pin: DOM.pin,
+            start: () => `center ${options.startOffset ?? 0.5 * getLVH()}px`,
+            end: () => {
+                updateOverlayTrack();
+                return `+=${DOM.overlayTrack.offsetHeight - DOM.pin.offsetHeight}`;
+            },
+            scrub: true,
+            pinSpacing: false,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+                const current = self.progress;
+                scrollDirection = current > lastProgress ? 'down' : 'up';
+                lastProgress = current;
+
+                updateVideoTime(current);
+                updateCueVisibility(current);
+            }
+        });
+    };
+
+    const setupCues = () => {
+        cueElements.length = 0;
+
+        const nodes = DOM.pin.querySelectorAll('[data-cue-start][data-cue-end]');
+        let index = 0;
+        let count = nodes.length;
+        let el, content, start, end;
+
+        for (index; index < count; index++) {
+            el = nodes[index];
+            content = el.querySelector('.sv-cue-content');
+            if (!content) continue;
+
+            start = parseFloat(el.getAttribute('data-cue-start'));
+            end = parseFloat(el.getAttribute('data-cue-end'));
+            if (Number.isFinite(start) && Number.isFinite(end)) {
+                cueElements.push({
+                    el,
+                    content,
+                    start,
+                    end,
+                    active: false
+                });
+            }
+        }
+    };
+
+    const updateCueVisibility = (progress) => {
+        const currentTime = progress * videoDuration;
+        const totalCues = cueElements.length;
+
+        const isScrollingDown = scrollDirection === 'down';
+        const yActive = isScrollingDown ? 50 : -50;
+        const yInactive = isScrollingDown ? -50 : 50;
+
+        let i = 0;
+        let activeCue = null;
+        let cue = null;
+        let content = null;
+
+        for (i = 0; i < totalCues; i++) {
+            cue = cueElements[i];
+            if (currentTime >= cue.start && currentTime < cue.end) {
+                activeCue = cue;
+                break;
+            }
+        }
+
+        for (i = 0; i < totalCues; i++) {
+            cue = cueElements[i];
+            content = cue.content;
+
+            if (cue === activeCue) {
+                if (!cue.active) {
+                    cue.active = true;
+
+                    for (let j = 0; j < totalCues; j++) {
+                        const otherCue = cueElements[j];
+                        if (otherCue !== cue && otherCue.active) {
+                            otherCue.active = false;
+                            gsap.killTweensOf(otherCue.content);
+                            gsap.set(otherCue.content, { opacity: 0, y: 0 });
+                        }
+                    }
+
+                    gsap.set(content, {
+                        opacity: 0,
+                        y: yActive,
+                    });
+
+                    gsap.to(content, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.3,
+                        ease: 'power2.out',
+                        overwrite: true,
+                    });
+                }
+
+            } else if (cue.active) {
+                cue.active = false;
+                gsap.killTweensOf(content);
+
+                gsap.to(content, {
+                    opacity: 0,
+                    y: yInactive,
+                    duration: 0.3,
+                    ease: 'power1.inOut',
+                    overwrite: true,
+                    onComplete: () => {
+                        gsap.set(content, { y: 0 });
+                    },
+                });
+            }
+        }
+    };
+
+    const updateVideoTime = (progress) => {
+        if (!isVisible || !DOM.video) return;
+        DOM.video.currentTime = Math.min(Math.max(progress, 0), 1) * videoDuration;
+    };
+
+    const updateOverlayTrack = () => {
+        if (!DOM.overlayTrack || !DOM.pin) return;
+
+        const pinHeight = DOM.pin.offsetHeight;
+        const scrollFactor = options.scrollFactor || 1;
+        const totalHeight = (pinHeight * videoDuration) * scrollFactor;
+
+        const newHeight = `${totalHeight - pinHeight}px`;
+        if (newHeight === lastOverlayHeight) return;
+
+        DOM.overlayTrack.style.setProperty('--track-offset-y', `-${pinHeight}px`);
+        DOM.overlayTrack.style.setProperty('--track-height', newHeight);
+        lastOverlayHeight = newHeight;
+    };
+
+    const update = () => {
+        updateOverlayTrack();
+    };
+
+    return {
+        initialize,
+        update,
+    };
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (scroller) scroller.initialize();
+
+    const scrubInstance = createVideoScrub();
+    scrubInstance.initialize({
+        selector: '#video_01',
+        scrollFactor: 1.5,
+    });
+
+    const globalRefresh = () => {
+        scrubInstance.update();
+        ScrollTrigger.refresh();
+    };
+
+    if (utils.device.isTouch()) {
+        window.addEventListener('orientationchange', () => {
+            utils.system.nextTick(globalRefresh, null, 500);
+        });
+    } else {
+        window.addEventListener('resize', () => {
+            utils.system.nextTick(globalRefresh);
+        });
+    }
+
+    utils.system.nextTick(() => {
+        globalRefresh();
+    }, null, 300);
+});
+</script>
+</body>
+</html>

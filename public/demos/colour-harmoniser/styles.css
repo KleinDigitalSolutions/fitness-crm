@@ -1,0 +1,668 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(
+    circle at 30% 10%,
+    hsl(210, 30%, 95%),
+    hsl(210, 30%, 85%) 60%,
+    hsl(210, 30%, 75%)
+  );
+  color: hsl(220, 15%, 20%);
+
+  display: grid;
+  place-content: center;
+
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+
+p {
+  justify-self: center;
+  opacity: 0.5;
+  max-width: 50ch;
+  padding-top: 1rem;
+  font-size: small;
+}
+
+/* Complementary shifting hue by ±180 degrees
+Analogous shifting hue by +30 and -30 degrees
+Triadic shifting hue by +120 and -120 degrees
+Tetradic shifting hue by +60, +180 and -120 degrees
+Split-Complementary shifting hue by ±150 degrees */
+
+:root {
+  --size: 75px;
+  --keycap-inset: 0.8rem;
+  --highlight-inset: 0.4rem;
+  --stroke-size: 1px;
+
+  --selected-hue: 250;
+  --selected-colour: oklch(65% 0.15 var(--selected-hue));
+}
+
+.key-container {
+  padding: 20px;
+  border: 1px solid transparent;
+  background: linear-gradient(
+        170deg,
+        oklch(98% 0.01 240),
+        oklch(95% 0.02 240)
+      )
+      padding-box,
+    linear-gradient(
+        179deg,
+        oklch(90% 0.01 240) 90%,
+        oklch(100% 0 0)
+      )
+      border-box;
+  box-shadow: inset 5px 5px 10px oklch(90% 0.01 240);
+  border-radius: 1rem;
+}
+
+.screen {
+  --lightest: oklch(98% 0.01 250);
+  --light: oklch(95% 0.02 250);
+  --dark: oklch(40% 0.05 250);
+
+  --faded-blue: oklch(80% 0.05 250);
+  --blue: oklch(70% 0.15 250);
+
+  --faded-red: oklch(80% 0.05 20);
+  --red: oklch(70% 0.15 20);
+
+  --scanlines: repeating-linear-gradient(
+    0deg,
+    oklch(0% 0 0 / 0) 0px,
+    oklch(0% 0 0 / 0) 1px,
+    oklch(0% 0 0 / 0.5) 2px,
+    oklch(0% 0 0 / 0) 3px
+  );
+
+  --screen-grad-1: oklch(30% 0.02 260);
+  --screen-grad-2: oklch(15% 0.03 260);
+  --screen-gradient: linear-gradient(
+    170deg,
+    var(--screen-grad-1),
+    var(--screen-grad-2)
+  );
+  --screen-stroke-gradient: linear-gradient(
+    130deg,
+    oklch(40% 0.02 250 / 0.6),
+    lch(20% 0.03 250 / 0.6)
+  );
+  --screen-stroke-highlight: linear-gradient(
+    130deg,
+    oklch(100% 0.00011 271.152 / 0.58),
+    oklch(100% 0.00011 271.152 / 0) 2%,
+    oklch(100% 0.00011 271.152 / 0) 90%,
+    oklch(100% 0.00011 271.152 / 0.1)
+  );
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  height: calc((var(--size) * 2) + var(--gap-size, 3px));
+  width: calc((var(--size) * 4) + (var(--gap-size, 3px) * 3));
+  border-radius: 0.5rem;
+
+  border: 2px solid transparent;
+  background: var(--screen-gradient) padding-box,
+    var(--screen-stroke-highlight) border-box,
+    var(--screen-stroke-gradient) border-box;
+
+  box-shadow: 3px 2px 15px -5px black;
+
+  padding: 0.5rem;
+  color: var(--light);
+
+  font-family: "Orbitron", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+
+  position: relative;
+
+  header {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-basis: 10%;
+    font-size: 80%;
+
+    & > * {
+      letter-spacing: 1px;
+      /*       adds a glow to text but makes it hard to read :/ */
+      /*       text-shadow: 0 0 3px oklch(from currentColor l c h / 0.5); */
+    }
+  }
+
+  .os-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-grow: 1;
+    padding-inline: 2rem;
+  }
+
+  .os-element {
+    --_colour: var(--light);
+    background: radial-gradient(
+      circle at 50% 50%,
+      transparent 19%,
+      var(--lightest) 22%,
+      var(--lightest) 35%,
+      var(--_colour) 42%,
+      var(--_colour) 48%
+    );
+    border: 2px solid var(--_colour);
+    border-radius: 50%;
+    box-shadow: 0 0 2px var(--_colour),
+      0 0 10px oklch(from var(--_colour) l c h / 0.6),
+      inset 0 0 5px oklch(from var(--_colour) l c h / 0.3);
+    height: 90%;
+    aspect-ratio: 1/1;
+
+    transition: all 0.3s ease;
+  }
+
+  .control {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: repeat(3, 20px);
+    gap: 1rem;
+    justify-content: space-evenly;
+    font-size: 10px;
+    color: var(--lightest);
+    text-align: center;
+    flex-grow: 1;
+    height: 100%;
+    padding-top: 1rem;
+
+    span {
+      color: rgba(255, 255, 255, 0.01);
+      height: 100%;
+      /* aspect-ratio: 1/1; */
+      background: currentColor;
+      box-shadow: 0 0 3px currentColor;
+      border-radius: 999px;
+
+      transition: color 0.3s ease;
+    }
+
+    &[data-harmony="complementary"] {
+      .one {
+        --hue-shift: 180;
+        color: oklch(
+          from var(--selected-colour) l c calc(h + var(--hue-shift))
+        );
+      }
+    }
+
+    &[data-harmony="analogous"] {
+      .one {
+        --hue-shift: 30;
+        color: oklch(
+          from var(--selected-colour) l c calc(h + var(--hue-shift))
+        );
+      }
+      .two {
+        --hue-shift: -30;
+        color: oklch(
+          from var(--selected-colour) l c calc(h + var(--hue-shift))
+        );
+      }
+    }
+
+    &[data-harmony="triadic"] {
+      .one {
+        --hue-shift: 120;
+        color: oklch(
+          from var(--selected-colour) l c calc(h + var(--hue-shift))
+        );
+      }
+      .two {
+        --hue-shift: -120;
+        color: oklch(
+          from var(--selected-colour) l c calc(h + var(--hue-shift))
+        );
+      }
+    }
+
+    &[data-harmony="tetradic"] {
+      .one {
+        --hue-shift: 60;
+        color: oklch(
+          from var(--selected-colour) l c calc(h + var(--hue-shift))
+        );
+      }
+      .two {
+        --hue-shift: 180;
+        color: oklch(
+          from var(--selected-colour) l c calc(h + var(--hue-shift))
+        );
+      }
+      .three {
+        --hue-shift: -120;
+        color: oklch(
+          from var(--selected-colour) l c calc(h + var(--hue-shift))
+        );
+      }
+    }
+
+    &[data-harmony="split"] {
+      .one {
+        --hue-shift: 150;
+        color: oklch(
+          from var(--selected-colour) l c calc(h + var(--hue-shift))
+        );
+      }
+      .two {
+        --hue-shift: -150;
+        color: oklch(
+          from var(--selected-colour) l c calc(h + var(--hue-shift))
+        );
+      }
+    }
+
+    &:after {
+      content: attr(data-harmony);
+      grid-column: 1 / -1;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+  }
+
+  /* &:before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: var(--scanlines);
+    z-index: 1;
+    mix-blend-mode: hard-light;
+  } */
+}
+
+.key {
+  --grad-1: oklch(98% 0.01 240);
+  --grad-2: oklch(95% 0.02 240);
+  --key-gradient: linear-gradient(137deg, var(--grad-1), var(--grad-2));
+
+  --stroke-1: oklch(100% 0 0);
+  --stroke-2: oklch(85% 0.01 240);
+  --stroke-gradient: linear-gradient(180deg, var(--stroke-1), var(--stroke-2));
+
+  --highlight: oklch(100% 0 0);
+  --highlight-falloff: oklch(98% 0.01 240);
+  --highlight-gradient: linear-gradient(
+    130deg,
+    var(--highlight),
+    var(--highlight-falloff) 48%,
+    transparent 70%
+  );
+
+  --keycap-1: oklch(97% 0.01 240);
+  --keycap-2: oklch(94% 0.02 240);
+  --keycap-gradient: linear-gradient(137deg, var(--keycap-1), var(--keycap-2));
+
+  --keycap-stroke-1: oklch(100% 0 0);
+  --keycap-stroke-2: oklch(88% 0.02 240);
+  --keycap-stroke-gradient: linear-gradient(
+    140deg,
+    var(--keycap-stroke-1),
+    var(--keycap-stroke-2)
+  );
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+
+  border: var(--stroke-size) solid transparent;
+
+  background: linear-gradient(95deg, var(--grad-2), transparent 10%) padding-box
+      no-repeat,
+    var(--key-gradient) padding-box, var(--stroke-gradient) border-box;
+
+  background-position: calc(-1 * var(--size)) 0, 0 0, 0 0;
+  transition: background-position 0.1s ease, transform 0.3s ease;
+
+  &:hover {
+    background-position: 0 0, 0 0, 0 0;
+    transform: translateY(2px);
+  }
+
+  position: relative;
+  isolation: isolate;
+  padding: 0.5rem;
+
+  overflow: hidden;
+
+  color: var(--font-colour, oklch(40% 0.05 250));
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  user-select: none;
+  cursor: pointer;
+
+  /* highlight */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: var(--highlight-inset);
+    border-radius: 999px;
+    background: var(--highlight-gradient);
+    filter: blur(1px);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Key Cap */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: var(--keycap-inset);
+    border-radius: 999px;
+
+    border: var(--stroke-size) solid transparent;
+
+    background: var(--keycap-gradient) padding-box,
+      var(--keycap-stroke-gradient) border-box;
+    pointer-events: none;
+
+    box-shadow: 0 0px 1px oklch(95% 0.01 240 / 0.4),
+      4px 4px 5px oklch(80% 0.02 240),
+      1px 6px 8px oklch(80% 0.02 240 / 0.5);
+    z-index: -1;
+  }
+
+  &.coloured {
+    cursor: default;
+    --tint-target-lightness: 0.98; /* almost white */
+    --tint-target-chroma: 0.02; /* very low chroma for near gray */
+
+    --shade-target-lightness: 0.15; /* very dark */
+    --shade-target-chroma: 0.02; /* very low chroma for near gray */
+
+    --colour: var(--selected-colour);
+    --colour-200: oklch(
+      from var(--colour) calc(l + (var(--tint-target-lightness) - l) * 0.6)
+        calc(c - (c - var(--tint-target-chroma)) * 0.6) h
+    );
+    --colour-800: oklch(
+      from var(--colour) calc(l - (l - var(--shade-target-lightness)) * 0.6)
+        calc(c - (c - var(--shade-target-chroma)) * 0.6) h
+    );
+
+    color: transparent;
+    &:hover {
+      transform: none;
+    }
+    &::after {
+      --stroke-size: 3px;
+      --keycap-gradient: linear-gradient(
+        137deg,
+        var(--colour-200),
+        var(--colour),
+        var(--colour-800)
+      );
+
+      box-shadow: inset -2px -2px 2px var(--colour-800),
+        inset 2px 2px 2px var(--colour-200),
+        0 0px 1px oklch(95% 0.01 240 / 0.4),
+        4px 4px 5px oklch(80% 0.02 240),
+        1px 6px 8px oklch(80% 0.02 240 / 0.5);
+    }
+  }
+
+  /* Sizing and shape variants handled in specific classes below */
+  &.square {
+    width: var(--size);
+    height: var(--size);
+  }
+
+  &.rectangle {
+    width: calc((var(--size) * 1.5) + var(--gap-size, 3px) / 2);
+    height: var(--size);
+    padding-right: calc((var(--size) / 1.5) - 0.75rem);
+
+    &:after,
+    &:before {
+      aspect-ratio: 1/1;
+      inset-inline-end: auto;
+    }
+
+    &.end {
+      padding-left: 2.4rem;
+      padding-right: unset;
+      &:after {
+        inset-inline-end: 0.75rem;
+        inset-inline-start: auto;
+      }
+      &:before {
+        inset-inline-end: 0.4rem;
+        inset-inline-start: auto;
+      }
+
+      label {
+        right: calc(-1 * var(--stroke-size));
+        left: auto;
+      }
+    }
+  }
+
+  &.tall {
+    width: var(--size);
+    height: calc((var(--size) * 2) + var(--gap-size, 3px));
+  }
+
+  &.dial {
+    cursor: grab;
+    /* dial controller - controls rotation of the dial */
+    input[type="range"] {
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      height: 0%;
+      border-radius: inherit;
+      background: transparent;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    --angle: 30deg; /* Desired rotation angle */
+    --radius: 35%; /* Distance from the center point */
+
+    /* Calculate the center point */
+    --center-x: 50%; /* Center X */
+    --center-y: 50%; /* Center Y */
+
+    --new-x: calc(
+      var(--center-x) + (var(--radius) * cos(-1 * (90deg - var(--angle))))
+    );
+    --new-y: calc(
+      var(--center-y) + (var(--radius) * sin(-1 * (90deg - var(--angle))))
+    );
+
+    height: var(--size);
+    width: calc((var(--size) * 2) + var(--gap-size, 3px));
+    padding-right: calc((var(--size) / 2) - 0.75rem);
+
+    --keycap-inset: calc(var(--size) * 0.2);
+    --highlight-inset: calc(var(--keycap-inset) - 0.4rem);
+
+    /* top and drop shadows  */
+    &::after {
+      background: radial-gradient(
+            circle 3px at var(--new-x) var(--new-y),
+            var(--keycap-stroke-2) 90%,
+            transparent
+          )
+          padding-box,
+        var(--keycap-gradient) padding-box,
+        var(--keycap-stroke-gradient) border-box;
+
+      box-shadow: inset -1px -1px 2px oklch(90% 0.02 240),
+        inset 1px 1px 2px oklch(100% 0 0),
+        4px 4px 5px oklch(40% 0.05 260 / 0.4),
+        1px 6px 8px oklch(80% 0.02 240 / 0.5),
+        26px 26px 19px -6px oklch(40% 0.05 260 / 0.41),
+        18px 18px 20px 8px oklch(40% 0.05 260 / 0.25);
+    }
+
+    &:after,
+    &:before {
+      aspect-ratio: 1/1;
+      inset-inline-end: auto;
+    }
+
+    &:hover {
+      transform: none;
+    }
+
+    .dial-right {
+      --keycap-inset: 1rem;
+      display: grid;
+      place-items: center;
+      position: absolute;
+      z-index: 1;
+      top: calc(-1 * var(--stroke-size));
+      right: calc(-1 * var(--stroke-size));
+      left: auto;
+
+      width: var(--size);
+      height: var(--size);
+    }
+  }
+
+  &.large-dial {
+    height: calc((var(--size) * 2) + var(--gap-size, 3px));
+    width: calc((var(--size) * 2) + var(--gap-size, 3px));
+
+    --keycap-inset: calc(var(--size) * 0.7);
+    --highlight-inset: calc(var(--keycap-inset) - 0.4rem);
+
+    color: transparent;
+    --dial-colour: oklch(40% 0.1 260);
+
+    --kc-grad-1: hsl(from var(--dial-colour) h s calc(l + 10));
+    --kc-grad-2: hsl(from var(--dial-colour) h s calc(l - 10));
+
+    --kc-stroke-1: hsl(from var(--dial-colour) h s calc(l + 30));
+    --kc-stroke-2: hsl(from var(--dial-colour) h s calc(l - 20));
+
+    --keycap-gradient: linear-gradient(
+      137deg,
+      var(--kc-grad-1),
+      var(--kc-grad-2)
+    );
+    --keycap-stroke-gradient: linear-gradient(
+      140deg,
+      var(--kc-stroke-1),
+      var(--dial-colour) 30%,
+      var(--dial-colour) 60%,
+      var(--kc-stroke-2) 80%
+    );
+
+    --line-point: 44%;
+    background: radial-gradient(
+          circle at 50% 50%,
+          transparent calc(var(--line-point) - 2px),
+          var(--stroke-1) var(--line-point),
+          transparent calc(var(--line-point) + 2px)
+        )
+        padding-box,
+      radial-gradient(
+          circle at calc(50% - 0.75px) calc(50% - 0.95px),
+          transparent calc(var(--line-point) - 2px),
+          var(--keycap-stroke-2) var(--line-point),
+          transparent calc(var(--line-point) + 2px)
+        )
+        padding-box,
+      var(--key-gradient) padding-box, var(--stroke-gradient) border-box;
+
+    background-position: 0 0, 0 0, 0 0;
+
+    &:hover {
+      transform: none;
+    }
+
+    /* drop shadows  */
+    &::after {
+      --stroke-size: 3px;
+      box-shadow: 4px 4px 5px oklch(40% 0.05 260 / 0.4),
+        1px 6px 8px oklch(80% 0.02 240 / 0.5),
+        26px 26px 19px -6px oklch(40% 0.05 260 / 0.61),
+        16px 16px 11px -2px oklch(40% 0.05 260 / 0.5),
+        38px 38px 21px -2px oklch(40% 0.05 260 / 0.37),
+        18px 18px 15px 8px oklch(40% 0.05 260 / 0.25),
+        0 0px 1px oklch(95% 0.01 240 / 0.4),
+        4px 4px 5px oklch(80% 0.02 240),
+        1px 6px 8px oklch(80% 0.02 240 / 0.5);
+    }
+  }
+
+  /* for ease of centering text */
+  label {
+    top: calc(-1 * var(--stroke-size));
+    left: calc(-1 * var(--stroke-size));
+    display: grid;
+    place-items: center;
+    position: absolute;
+    z-index: 1;
+    width: var(--size);
+    height: var(--size);
+    pointer-events: none;
+  }
+}
+
+.led {
+  --led-colour: #88aaff;
+  background-image: radial-gradient(
+      0.3em 0.25em at 50% 25%,
+      rgb(255, 255, 255) 25%,
+      rgba(255, 255, 255, 0)
+    ),
+    radial-gradient(
+      0.25em 0.25em at 30% 75%,
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0)
+    ),
+    radial-gradient(
+      0.3em 0.3em at 60% 80%,
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0)
+    ),
+    radial-gradient(
+      100% 100%,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0.3) 40%,
+      rgba(0, 0, 0, 0.5) 50%
+    );
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color var(--led-transition-duration) linear;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: var(--led-colour);
+  box-shadow: 0 0 0.75rem var(--led-colour), 0 0.5rem 0.75rem rgba(0, 0, 0, 0.2);
+
+  z-index: 999;
+}

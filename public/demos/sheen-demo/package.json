@@ -1,0 +1,12 @@
+{
+  "name": "Sheen",
+  "version": "1.0.0",
+  "description": "GPGPU Cloth Simulation",
+  "main": "src/main.js",
+  "author": "sciecode",
+  "license": "MIT",
+  "homepage": "sciecode.github.io/sheen",
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  }
+}
