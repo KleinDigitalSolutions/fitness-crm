@@ -129,7 +129,7 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
                 </div>
               </div>
 
-              {member.profiles?.date_of_birth && (
+              {member.personalInfo.dateOfBirth && (
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/10">
                     <Calendar className="h-5 w-5 text-green-400" />
@@ -137,20 +137,20 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
                   <div>
                     <p className="text-xs text-white/50">Date of Birth</p>
                     <p className="text-white">
-                      {new Date(member.profiles.date_of_birth).toLocaleDateString('de-DE')}
+                      {new Date(member.personalInfo.dateOfBirth).toLocaleDateString('de-DE')}
                     </p>
                   </div>
                 </div>
               )}
 
-              {member.profiles?.address && (
+              {member.personalInfo.address && (
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/10">
                     <MapPin className="h-5 w-5 text-orange-400" />
                   </div>
                   <div>
                     <p className="text-xs text-white/50">Address</p>
-                    <p className="text-white">{JSON.stringify(member.profiles.address)}</p>
+                    <p className="text-white">{JSON.stringify(member.personalInfo.address)}</p>
                   </div>
                 </div>
               )}
@@ -164,8 +164,8 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
               <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                 <p className="text-xs uppercase tracking-wider text-white/50">Contract Start</p>
                 <p className="mt-1 text-lg font-semibold text-white">
-                  {member.contract_start_date
-                    ? new Date(member.contract_start_date).toLocaleDateString('de-DE')
+                  {member.membership.contractStartDate
+                    ? new Date(member.membership.contractStartDate).toLocaleDateString('de-DE')
                     : 'Not set'}
                 </p>
               </div>
@@ -173,30 +173,30 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
               <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                 <p className="text-xs uppercase tracking-wider text-white/50">Contract End</p>
                 <p className="mt-1 text-lg font-semibold text-white">
-                  {member.contract_end_date
-                    ? new Date(member.contract_end_date).toLocaleDateString('de-DE')
+                  {member.membership.contractEndDate
+                    ? new Date(member.membership.contractEndDate).toLocaleDateString('de-DE')
                     : 'Unlimited'}
                 </p>
               </div>
 
               <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                 <p className="text-xs uppercase tracking-wider text-white/50">Credits Balance</p>
-                <p className="mt-1 text-lg font-semibold text-white">{member.credits_balance || 0}</p>
+                <p className="mt-1 text-lg font-semibold text-white">{member.membership.creditsBalance}</p>
               </div>
 
               <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                 <p className="text-xs uppercase tracking-wider text-white/50">Loyalty Points</p>
-                <p className="mt-1 text-lg font-semibold text-white">{member.loyalty_points || 0}</p>
+                <p className="mt-1 text-lg font-semibold text-white">{member.membership.loyaltyPoints}</p>
               </div>
             </div>
 
-            {member.membership_types && (
+            {member.membership.type && (
               <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-xs uppercase tracking-wider text-white/50">Monthly Fee</p>
                     <p className="mt-1 text-2xl font-bold text-white">
-                      €{member.membership_types.price_monthly?.toFixed(2) || '0.00'}
+                      €{member.membership.type.priceMonthly?.toFixed(2) || '0.00'}
                     </p>
                   </div>
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-500/10">
@@ -208,11 +208,11 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
           </div>
 
           {/* Health Notes */}
-          {member.profiles?.health_notes && (
+          {member.health.notes && (
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
               <h2 className="mb-4 text-xl font-bold text-white">Health Notes</h2>
               <div className="rounded-xl border border-yellow-500/20 bg-yellow-500/10 p-4">
-                <p className="text-sm text-white/80">{member.profiles.health_notes}</p>
+                <p className="text-sm text-white/80">{member.health.notes}</p>
               </div>
             </div>
           )}
