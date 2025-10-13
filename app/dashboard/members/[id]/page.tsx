@@ -262,7 +262,7 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
                   <span className="text-sm text-white/70">Member Since</span>
                 </div>
                 <span className="text-sm font-semibold text-white">
-                  {new Date(member.created_at).toLocaleDateString('de-DE', {
+                  {new Date(member.meta.createdAt).toLocaleDateString('de-DE', {
                     month: 'short',
                     year: 'numeric',
                   })}
@@ -272,11 +272,11 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
           </div>
 
           {/* Tags */}
-          {member.tags && member.tags.length > 0 && (
+          {member.meta.tags && member.meta.tags.length > 0 && (
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
               <h2 className="mb-4 text-xl font-bold text-white">Tags</h2>
               <div className="flex flex-wrap gap-2">
-                {member.tags.map((tag: string, index: number) => (
+                {member.meta.tags.map((tag: string, index: number) => (
                   <span
                     key={index}
                     className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white"
@@ -289,10 +289,10 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
           )}
 
           {/* Notes */}
-          {member.notes && (
+          {member.meta.notes && (
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
               <h2 className="mb-4 text-xl font-bold text-white">Notes</h2>
-              <p className="text-sm leading-relaxed text-white/70">{member.notes}</p>
+              <p className="text-sm leading-relaxed text-white/70">{member.meta.notes}</p>
             </div>
           )}
         </div>

@@ -107,7 +107,7 @@ export const getMembers = cache(async (): Promise<MemberListDTO[]> => {
         name,
         color
       ),
-      profiles (
+      profiles!inner (
         first_name,
         last_name,
         phone
@@ -122,23 +122,27 @@ export const getMembers = cache(async (): Promise<MemberListDTO[]> => {
   }
 
   // 3. Transform to DTO (controlled data structure)
-  return (data || []).map((member) => ({
-    id: member.id,
-    fullName: member.profiles
-      ? `${member.profiles.first_name || ''} ${member.profiles.last_name || ''}`.trim()
-      : 'Unknown Member',
-    email: null, // Not included in list view for performance
-    phone: member.profiles?.phone || null,
-    status: member.status || 'unknown',
-    memberNumber: member.member_number,
-    membershipType: member.membership_types
-      ? {
-          name: member.membership_types.name,
-          color: member.membership_types.color,
-        }
-      : null,
-    joinedAt: member.created_at,
-  }));
+  return (data || []).map((member: any) => {
+    const profile = Array.isArray(member.profiles) ? member.profiles[0] : member.profiles;
+    const firstName = profile?.first_name || '';
+    const lastName = profile?.last_name || '';
+
+    return {
+      id: member.id,
+      fullName: `${firstName} ${lastName}`.trim() || 'Unknown Member',
+      email: null, // Not included in list view for performance
+      phone: profile?.phone || null,
+      status: member.status || 'unknown',
+      memberNumber: member.member_number,
+      membershipType: member.membership_types
+        ? {
+            name: member.membership_types.name,
+            color: member.membership_types.color,
+          }
+        : null,
+      joinedAt: member.created_at,
+    };
+  });
 });
 
 /**
@@ -316,19 +320,25 @@ export const searchMembers = cache(async (query: string): Promise<MemberListDTO[
     throw new Error('Failed to search members');
   }
 
-  return (data || []).map((member) => ({
-    id: member.id,
-    fullName: `${member.profiles?.first_name || ''} ${member.profiles?.last_name || ''}`.trim(),
-    email: null,
-    phone: member.profiles?.phone || null,
-    status: member.status || 'unknown',
-    memberNumber: member.member_number,
-    membershipType: member.membership_types
-      ? {
-          name: member.membership_types.name,
-          color: member.membership_types.color,
-        }
-      : null,
-    joinedAt: member.created_at,
-  }));
+  return (data || []).map((member: any) => {
+    const profile = Array.isArray(member.profiles) ? member.profiles[0] : member.profiles;
+    const firstName = profile?.first_name || '';
+    const lastName = profile?.last_name || '';
+
+    return {
+      id: member.id,
+      fullName: `${firstName} ${lastName}`.trim() || 'Unknown Member',
+      email: null,
+      phone: profile?.phone || null,
+      status: member.status || 'unknown',
+      memberNumber: member.member_number,
+      membershipType: member.membership_types
+        ? {
+            name: member.membership_types.name,
+            color: member.membership_types.color,
+          }
+        : null,
+      joinedAt: member.created_at,
+    };
+  });
 });
