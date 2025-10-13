@@ -6,9 +6,8 @@ import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { loginAction } from '@/app/(auth)/actions';
+import { useState, useTransition } from 'react';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
@@ -16,8 +15,9 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,14 +27,20 @@ export function LoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const supabase = createClient();
-    const { error } = await supabase.auth.signInWithPassword(values);
+    setError(null);
 
-    if (error) {
-      setError(error.message);
-    } else {
-      router.push('/dashboard');
-    }
+    startTransition(async () => {
+      const formData = new FormData();
+      formData.append('email', values.email);
+      formData.append('password', values.password);
+
+      const result = await loginAction(formData);
+
+      if (!result.success) {
+        setError(result.error || 'Failed to login');
+      }
+      // On success, loginAction redirects automatically
+    });
   }
 
   return (
@@ -82,9 +88,10 @@ export function LoginForm() {
         )}
         <Button
           type="submit"
-          className="w-full rounded-xl border border-white/20 bg-red-500 py-6 font-semibold text-white transition-all hover:bg-red-600"
+          disabled={isPending}
+          className="w-full rounded-xl border border-white/20 bg-red-500 py-6 font-semibold text-white transition-all hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Sign In
+          {isPending ? 'Signing in...' : 'Sign In'}
         </Button>
       </form>
     </Form>

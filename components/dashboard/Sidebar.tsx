@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Users, Calendar, CreditCard, BarChart3, Settings, LayoutDashboard } from 'lucide-react';
+import { LogoutButton } from '@/components/auth/logout-button';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -51,7 +52,8 @@ export function Sidebar() {
         </nav>
 
         {/* Footer */}
-        <div className="border-t border-white/10 p-4">
+        <div className="border-t border-white/10 p-4 space-y-3">
+          <LogoutButton />
           <div className="rounded-xl border border-white/10 bg-white/5 p-3">
             <p className="text-xs font-medium text-white/50">Need Help?</p>
             <p className="mt-1 text-xs text-white/70">Contact Support</p>
