@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body.ueber-uns-theme {
 	--page-padding: 1.5rem;
 	--color-text: #000;
@@ -15,17 +19,13 @@ body.ueber-uns-theme {
 body.ueber-uns-theme {
 	margin: 0;
 	color: var(--color-text);
-	background-color: var(--color-bg); 
+	background-color: var(--color-bg);
 	font-family: "area-variable", sans-serif;
 	font-variation-settings: "slnt" 0, "wdth" 150, "wght" 500, "INKT" 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	width: 100%;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 body.no-overflow-x {
   overflow-x: visible !important;
